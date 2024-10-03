@@ -2,10 +2,7 @@ package ch.heigvd.iict.daa.template
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-
-import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
