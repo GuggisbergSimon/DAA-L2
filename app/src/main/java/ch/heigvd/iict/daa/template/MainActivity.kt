@@ -1,0 +1,20 @@
+package ch.heigvd.iict.daa.template
+
+import android.annotation.SuppressLint
+import android.os.Bundle
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+
+import android.widget.Toast
+
+class MainActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val monButton = findViewById<Button>(R.id.main_login_button)
+        monButton.setOnClickListener {
+            Toast.makeText(this, "Click", Toast.LENGTH_SHORT).show();
+        }
+    }
+}
