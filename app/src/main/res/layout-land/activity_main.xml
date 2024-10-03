@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- ScrollView can only have one child, which will be the LinearLayout -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor1" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor2" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor1" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor2" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor1" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor2" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor1" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor2" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor1" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor2" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor1" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor2" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor1" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor2" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor1" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor2" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor1" />
+
+        <View
+            android:layout_width="@dimen/finger_size"
+            android:layout_height="match_parent"
+            android:background="@color/mycolor2" />
+    </LinearLayout>
+</HorizontalScrollView>
