@@ -1,15 +1,15 @@
-package ch.heigvd.iict.and.labo2.fragments
+package ch.heigvd.iict.daa.lab2
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import ch.heigvd.iict.and.labo2.R
+import androidx.fragment.app.Fragment
+import ch.heigvd.iict.daa.template.R
 
-private const val ARG_COUNTER = "param_counter"
+private const val ARG_COUNTER = "param_counter";
 
 class CounterFragment : Fragment() {
 
@@ -22,7 +22,11 @@ class CounterFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // création de la vue à partir du xml
         return inflater.inflate(R.layout.fragment_counter, container, false)
     }
