@@ -1,16 +1,18 @@
-package ch.heigvd.iict.and.labo2.fragments
+package ch.heigvd.iict.daa.lab2
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import ch.heigvd.iict.and.labo2.R
+import androidx.fragment.app.Fragment
+import ch.heigvd.iict.daa.template.R
 
 private const val ARG_HEX_COLOR = "param_color"
 private const val DEFAULT_COLOR = "#CDCDCD"
+
+
 
 class ColorFragment : Fragment() {
 
