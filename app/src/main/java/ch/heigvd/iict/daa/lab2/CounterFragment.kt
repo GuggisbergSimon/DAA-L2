@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import ch.heigvd.iict.daa.template.R
 
 private const val ARG_COUNTER = "param_counter";
 
