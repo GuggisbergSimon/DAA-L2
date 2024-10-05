@@ -15,12 +15,17 @@ Comment peut-on éviter ce comportement indésirable ? Quelle est la différence
 seconde Activité ?
 
 2.
+
 - Les deux Fragments fournis implémentent la restauration de leur état. Si on enlève la
-sauvegarde de l’état sur le ColorFragment sa couleur sera tout de même restaurée, comment
-pouvons-nous expliquer cela ?
+  sauvegarde de l’état sur le ColorFragment sa couleur sera tout de même restaurée, comment
+  pouvons-nous expliquer cela ? Car les informations sont enregistrées dans le Bundle, qui est passé
+  en argument à la fonction onCreate. Ceci se fait de manière indépendant de l'usage de
+  onSaveInstanceState.
 - Si nous plaçons deux fois le CounterFragment dans l’Activité, nous aurons deux instances
-indépendantes de celui-ci. Comment est-ce que la restauration de l’état se passe en cas de
-rotation de l’écran ?
+  indépendantes de celui-ci. Comment est-ce que la restauration de l’état se passe en cas de
+  rotation de l’écran ? Chaque instance de ces Fragments sont indépendantes et possèdent un
+  identifiant unique. Ceci permet de sauvegarder les informations de manière indépendante dans le
+  Bundle et donc récupérer les informations de manière individuelle.
 
 3.
 - A l’initialisation de l’Activité, comment peut-on faire en sorte que la première étape s’affiche
