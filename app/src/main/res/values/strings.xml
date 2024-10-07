@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">template</string>
-    <string name="welcome">Welcome to DAA!</string>
-    <string name="main_login_title">Log-in</string>
-    <string name="main_login_username">Username</string>
-    <string name="main_login_password">Password</string>
-    <string name="main_login_connect">Connect</string>
+    <string name="edit">EDITER</string>
+    <string name="save">SAUVER</string>
+    <string name="enter_name">Entrez votre nom</string>
+    <string name="welcome_unnamed">Bienvenue, veuillez entrer votre nom</string>
 </resources>
