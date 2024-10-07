@@ -10,9 +10,11 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 
+//TODO eventually move in its own file
 class PickNameContract : ActivityResultContract<Void?, String?>() {
     override fun createIntent(context: Context, input: Void?) =
         Intent(context, MainActivityEdit::class.java)
+
     override fun parseResult(resultCode: Int, result: Intent?): String? {
         if (resultCode != Activity.RESULT_OK) {
             return null
@@ -26,9 +28,10 @@ class MainActivityWelcome : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private val getName = this.registerForActivityResult(PickNameContract()) {
-        if (it == "") {
+        //TODO improve string usage by using resources
+        if (it == null || it == "") {
             textView.text = "Bienvenue, veuillez entrer votre nom"
-        } else{
+        } else {
             textView.text = "Bienvenue, $it !"
         }
     }
