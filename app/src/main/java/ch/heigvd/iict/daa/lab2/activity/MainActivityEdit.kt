@@ -1,4 +1,4 @@
-package ch.heigvd.iict.daa.lab2
+package ch.heigvd.iict.daa.lab2.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import ch.heigvd.iict.daa.lab2.R
 
 class MainActivityEdit : AppCompatActivity() {
 

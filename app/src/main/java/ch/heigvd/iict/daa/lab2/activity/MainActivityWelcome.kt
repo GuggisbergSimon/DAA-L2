@@ -1,27 +1,11 @@
-package ch.heigvd.iict.daa.lab2
+package ch.heigvd.iict.daa.lab2.activity
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
-
-//TODO eventually move in its own file
-class PickNameContract : ActivityResultContract<Void?, String?>() {
-    override fun createIntent(context: Context, input: Void?) =
-        Intent(context, MainActivityEdit::class.java)
-
-    override fun parseResult(resultCode: Int, result: Intent?): String? {
-        if (resultCode != Activity.RESULT_OK) {
-            return null
-        }
-        return result?.getStringExtra(MainActivityEdit.ASK_FOR_NAME_RESULT_KEY)
-    }
-}
+import ch.heigvd.iict.daa.lab2.R
 
 class MainActivityWelcome : AppCompatActivity() {
     private lateinit var textView: TextView
