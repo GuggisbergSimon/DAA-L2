@@ -4,6 +4,7 @@
     <string name="save">SAUVER</string>
     <string name="enter_name">Entrez votre nom</string>
     <string name="welcome_unnamed">Bienvenue, veuillez entrer votre nom</string>
+    <string name="welcome_named">Bienvenue, %1$s !</string>
     <string name="back">Back</string>
     <string name="close">Close</string>
     <string name="next">Next</string>

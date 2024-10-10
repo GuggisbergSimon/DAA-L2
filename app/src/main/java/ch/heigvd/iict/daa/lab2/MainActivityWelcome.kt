@@ -1,6 +1,5 @@
 package ch.heigvd.iict.daa.lab2
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -26,13 +25,11 @@ class PickNameContract : ActivityResultContract<Void?, String?>() {
 class MainActivityWelcome : AppCompatActivity() {
     private lateinit var textView: TextView
 
-    @SuppressLint("SetTextI18n")
     private val getName = this.registerForActivityResult(PickNameContract()) {
-        //TODO improve string usage by using resources
         if (it == null || it == "") {
-            textView.text = "Bienvenue, veuillez entrer votre nom"
+            textView.text = getString(R.string.welcome_unnamed)
         } else {
-            textView.text = "Bienvenue, $it !"
+            textView.text = getString(R.string.welcome_named, it)
         }
     }
 

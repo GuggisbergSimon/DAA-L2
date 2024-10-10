@@ -22,6 +22,6 @@ class MainActivityEdit : AppCompatActivity() {
     }
 
     companion object {
-        val ASK_FOR_NAME_RESULT_KEY = "NAME_KEY"
+        const val ASK_FOR_NAME_RESULT_KEY = "NAME_KEY"
     }
 }
