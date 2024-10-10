@@ -47,3 +47,8 @@ En implémentant onSaveInstanceState et onRestoreInstanceState, on peut sauvegar
 ### Dans une transaction sur le Fragment, quelle est la différence entre les méthodes add et replace ?
 
 Replace supprime le fragment précédent, add le rajoute au layout, sans l'afficher au dessus du précédent.
+
+
+### TODO
+* une description de l’implémentation de chaque partie en justifiant d’éventuels
+* la liste des manipulations effectuées avec les résultats associés.
