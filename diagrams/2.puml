@@ -1,0 +1,35 @@
+@startuml 2
+
+|MainActivityWelcome|
+start
+:onCreate();
+:onStart();
+:onResume();
+:Click on button;
+:onPause();
+|MainActivityEdit|
+:onCreate();
+:onStart();
+:onResume();
+|MainActivityWelcome|
+:onStop();
+|MainActivityEdit|
+:Landscape mode;
+:onPause();
+:onStop();
+:onDestroy();
+:onCreate();
+:onStart();
+:onResume();
+:Put name and save;
+:onPause();
+|MainActivityWelcome|
+:onStart();
+:onResume();
+|MainActivityEdit|
+:onStop();
+:onDestroy();
+stop
+
+
+@enduml

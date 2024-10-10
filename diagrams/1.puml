@@ -1,0 +1,28 @@
+@startuml 1
+
+|MainActivityWelcome|
+start
+:onCreate();
+:onStart();
+:onResume();
+:Click on button;
+:onPause();
+|MainActivityEdit|
+:onCreate();
+:onStart();
+:onResume();
+|MainActivityWelcome|
+:onStop();
+|MainActivityEdit|
+:Put name and save;
+:onPause();
+|MainActivityWelcome|
+:onStart();
+:onResume();
+|MainActivityEdit|
+:onStop();
+:onDestroy();
+stop
+
+
+@enduml
