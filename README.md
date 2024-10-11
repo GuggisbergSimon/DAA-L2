@@ -12,47 +12,11 @@ L'utilisateur revient à l'activité précédente sur la pile, ici la première.
 
 #### L’utilisateur ouvre l’application, clique sur le bouton éditer, renseigne son prénom et sauve.
 
-```log
-2024-10-10 19:00:27.446 22441-22441 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onCreate called
-2024-10-10 19:00:28.844 22441-22441 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onStart called
-2024-10-10 19:00:28.872 22441-22441 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onResume called
-2024-10-10 19:04:30.049 22441-22441 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onPause called
-2024-10-10 19:04:30.176 22441-22441 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onCreate called
-2024-10-10 19:04:30.329 22441-22441 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onStart called
-2024-10-10 19:04:30.331 22441-22441 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onResume called
-2024-10-10 19:04:31.272 22441-22441 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onStop called
-2024-10-10 19:05:41.238 22441-22441 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onPause called
-2024-10-10 19:05:41.276 22441-22441 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onStart called
-2024-10-10 19:05:41.282 22441-22441 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onResume called
-2024-10-10 19:05:42.136 22441-22441 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onStop called
-2024-10-10 19:05:42.140 22441-22441 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onDestroy called
-```
+![Diagramme2](./diagrams/1.svg)
 
 #### L’utilisateur ouvre l’application en mode portrait, clique sur le bouton éditer, bascule en mode paysage, renseigne son prénom et sauve.
 
-```log
-2024-10-10 19:15:52.859 22967-22967 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onCreate called
-2024-10-10 19:15:53.978 22967-22967 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onStart called
-2024-10-10 19:15:53.993 22967-22967 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onResume called
-2024-10-10 19:16:21.075 22967-22967 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onPause called
-2024-10-10 19:16:21.124 22967-22967 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onCreate called
-2024-10-10 19:16:21.245 22967-22967 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onStart called
-2024-10-10 19:16:21.249 22967-22967 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onResume called
-2024-10-10 19:16:22.748 22967-22967 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onStop called
-2024-10-10 19:17:32.092 22967-22967 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onPause called
-2024-10-10 19:17:32.125 22967-22967 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onStop called
-2024-10-10 19:17:32.144 22967-22967 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onDestroy called
-2024-10-10 19:17:32.255 22967-22967 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onCreate called
-2024-10-10 19:17:32.381 22967-22967 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onStart called
-2024-10-10 19:17:32.394 22967-22967 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onResume called
-2024-10-10 19:27:37.911 22967-22967 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onPause called
-2024-10-10 19:27:37.963 22967-22967 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onDestroy called
-2024-10-10 19:27:38.001 22967-22967 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onCreate called
-2024-10-10 19:27:38.060 22967-22967 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onStart called
-2024-10-10 19:27:38.066 22967-22967 MainActivityWelcome     ch.heigvd.iict.daa.lab2              D  onResume called
-2024-10-10 19:27:38.953 22967-22967 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onStop called
-2024-10-10 19:27:38.960 22967-22967 MainActivityEdit        ch.heigvd.iict.daa.lab2              D  onDestroy called
-```
+![Diagramme2](./diagrams/2.svg)
 
 
 ### Que faut-il mettre en place pour que vos Activités supportent la rotation de l’écran ? Est-ce nécessaire de le réaliser pour les deux Activités, quelle est la différence ?
