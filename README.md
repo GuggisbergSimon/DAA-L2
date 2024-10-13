@@ -77,6 +77,5 @@ Nous avons choisi de ne pas sauvegarder les fragments lorsque le bouton "Back" e
 
 ## Conclusion
 
-L'utilisation correcte des activités, des fragments, des intents et des contrats est une chose vitale pour le développement Android.
-Créer des applications complexes demande une réflection à ce sujet et expérimenter sur ces fonctionnalités comme ce laboratoire nous a permis de le faire nous a grandement sensibilisé à leur sujet.
- 
+L'utilisation des activités, fragment, intent et contrats est vitale pour le développement Android.
+Les application complexes demande de pousser la réflexion sur l'utilisation de ces outils, et ce laboratoire nous a permis de développer une certain sensibilité sur le sujet.
