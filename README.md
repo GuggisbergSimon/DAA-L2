@@ -2,6 +2,12 @@
 
 _**Furrer Patrick, Guggisberg Simon et Troeltsch Jonas**_
 
+<div style="page-break-after: always;"></div>
+
+## Introduction
+
+Ce laboratoire consiste en une première prise en main et expérimentation autour des activités et des fragments.
+
 Afin de lancer chacune des parties, il convient de modifier le AndroidManifest.xml selon les besoins.
 - Veuiller changer la valeur android:name selon celle de la partie, et activité, souhaitée, celles-ci étant mentionnées dans le manifest. 
 - De plus la partie 1 requière de décommenter certaines parties du manifest.
@@ -68,3 +74,9 @@ Nous avons 2 classes pour cette partie :
 - SimpleFragment, qui contient principalement sa propre id. Nous avons décider de passer par une création statique de notre instance, visible au niveau de la JVM. Cela nous permet d'utiliser et stocker l'id dans le Bundle.
 Le fragment contient en lui même le bouton "Increment". Celui-ci incrémente le compteur interne au fragment et non son id.
 Nous avons choisi de ne pas sauvegarder les fragments lorsque le bouton "Back" est pressé. Ce choix est dû à l’utilisation d'une pile plutôt qu'un tableau pour représenter les fragments.
+
+## Conclusion
+
+L'utilisation correcte des activités, des fragments, des intents et des contrats est une chose vitale pour le développement Android.
+Créer des applications complexes demande une réflection à ce sujet et expérimenter sur ces fonctionnalités comme ce laboratoire nous a permis de le faire nous a grandement sensibilisé à leur sujet.
+ 
