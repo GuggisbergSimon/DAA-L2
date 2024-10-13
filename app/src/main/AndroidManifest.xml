@@ -11,15 +11,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DAA"
         tools:targetApi="34">
+        <!--
+        android:name="ch.heigvd.iict.daa.lab2.activity.MainActivityWelcome"
+        android:name="ch.heigvd.iict.daa.lab2.MainActivityFragment2
+        android:name="ch.heigvd.iict.daa.lab2.MainActivityFragment1
+        "-->
         <activity
-            android:name="ch.heigvd.iict.daa.lab2.activity.MainActivityWelcome"
+            android:name="ch.heigvd.iict.daa.lab2.MainActivityFragment2"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
+            <!-- Only for part 1
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+               <action android:name="android.intent.action.MAIN" />
+               <category android:name="android.intent.category.LAUNCHER" />
+           </intent-filter>
+                   -->
         </activity>
-        <activity android:name=".activity.MainActivityEdit" />
+        <!-- Only for part 1
+       <activity android:name=".activity.MainActivityEdit" />
+       -->
     </application>
 </manifest>
