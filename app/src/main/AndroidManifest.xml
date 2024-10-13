@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,24 +12,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DAA"
         tools:targetApi="34">
-        <!--
+        <!-- Part 1
         android:name="ch.heigvd.iict.daa.lab2.activity.MainActivityWelcome"
-        android:name="ch.heigvd.iict.daa.lab2.MainActivityFragment2
-        android:name="ch.heigvd.iict.daa.lab2.MainActivityFragment1
-        "-->
+        -->
+        <!-- Part 3
+        android:name="ch.heigvd.iict.daa.lab2.MainActivityFragment1"
+        -->
+        <!-- Part 2
+        android:name="ch.heigvd.iict.daa.lab2.MainActivityFragment2"
+        -->
         <activity
-            android:name="ch.heigvd.iict.daa.lab2.MainActivityFragment2"
+            android:name="ch.heigvd.iict.daa.lab2.MainActivityFragment1"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
-            <!-- Only for part 1
+            <!-- Part 1
             <intent-filter>
                <action android:name="android.intent.action.MAIN" />
                <category android:name="android.intent.category.LAUNCHER" />
-           </intent-filter>
-                   -->
+            </intent-filter>
+            -->
         </activity>
-        <!-- Only for part 1
-       <activity android:name=".activity.MainActivityEdit" />
-       -->
+        <!-- Part 1
+        <activity android:name=".activity.MainActivityEdit" />
+        -->
     </application>
 </manifest>
