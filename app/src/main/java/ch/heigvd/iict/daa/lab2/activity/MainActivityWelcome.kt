@@ -1,3 +1,7 @@
+/**
+ * Authors : Patrick Furrer, Simon Guggisberg & Jonas Troeltsch
+ */
+
 package ch.heigvd.iict.daa.lab2.activity
 
 import android.os.Bundle
