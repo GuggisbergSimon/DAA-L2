@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_base_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_base_name_title" />
+
+    <EditText
+        android:id="@+id/main_base_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/main_base_name_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_base_firstname_title" />
+
+    <EditText
+        android:id="@+id/main_base_firstname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/main_base_firstname_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_base_birthdate_title" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cake" />
+
+    <DatePicker
+        android:id="@+id/main_base_birthdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_base_nationality_title" />
+
+    <Spinner
+        android:id="@+id/main_base_n"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_base_occupation_title" />
+
+    <RadioGroup
+        android:id="@+id/main_base_occupation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/main_base_occupation_student"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_base_occupation_student" />
+
+        <RadioButton
+            android:id="@+id/main_base_occupation_worker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_base_occupation_worker" />
+    </RadioGroup>
+
+    <!-- HIC SUNT DRACONES -->
+    <!-- STUDENT -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_specific_students_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_specific_school_title" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/main_specific_school_title"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_specific_graduationyear_title" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/main_specific_graduationyear_title"/>
+
+    <!-- HIC SUNT DRACONES -->
+    <!-- EMPLOYEE -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
