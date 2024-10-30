@@ -304,11 +304,17 @@
 
     <EditText
         android:id="@+id/main_complementary_remarks"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/lineHeight"
-        app:layout_constraintTop_toTopOf="@id/main_complementary_remarks_title"
-        app:layout_constraintStart_toEndOf="@id/main_complementary_remarks_title"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="top|start"
+        android:hint="@string/additional_remarks_title"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:scrollbars="vertical"
+        android:imeOptions="flagNoEnterAction"
+        android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
+        app:layout_constraintTop_toBottomOf="@id/main_complementary_remarks_title"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_bias="0.5" />
 
     <Button

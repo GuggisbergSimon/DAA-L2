@@ -3,6 +3,7 @@ package ch.heigvd.iict.daa.lab03
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -20,7 +21,39 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Students and employees fields
+        // Base fields
+        val baseEditTexts = listOf(
+            findViewById<EditText>(R.id.main_base_name),
+            findViewById<EditText>(R.id.main_base_firstname),
+        )
+
+        // Additional fields
+        val additionalEditTexts = listOf(
+            findViewById<EditText>(R.id.main_complementary_email),
+            findViewById<EditText>(R.id.main_complementary_remarks),
+        )
+
+        // Nationalities spinner
+        val nationalitiesSpinner = findViewById<Spinner>(R.id.nationality)
+        val nationalitiesAdapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.nationalities,
+            android.R.layout.simple_spinner_item
+        )
+        nationalitiesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        nationalitiesSpinner.adapter = nationalitiesAdapter
+
+        // Sectors spinner
+        val sectorsSpinner = findViewById<Spinner>(R.id.sector)
+        val sectorsAdapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.sectors,
+            android.R.layout.simple_spinner_item
+        )
+        sectorsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        sectorsSpinner.adapter = sectorsAdapter
+
+        // Student fields
         val studentTextViews = listOf(
             findViewById<TextView>(R.id.main_specific_students_title),
             findViewById<TextView>(R.id.main_specific_school_title),
@@ -31,6 +64,7 @@ class MainActivity : AppCompatActivity() {
             findViewById<EditText>(R.id.main_specific_graduationyear),
         )
 
+        // Employee fields
         val employeeTextViews = listOf(
             findViewById<TextView>(R.id.main_specific_workers_title),
             findViewById<TextView>(R.id.main_specific_company_title),
@@ -41,14 +75,13 @@ class MainActivity : AppCompatActivity() {
             findViewById<EditText>(R.id.main_specific_company),
             findViewById<EditText>(R.id.main_specific_experience),
         )
-        val employeeSpinner = findViewById<Spinner>(R.id.sector)
 
         // Hide all student and employee fields
         studentTextViews.forEach { it.visibility = View.GONE }
         studentEditTexts.forEach { it.visibility = View.GONE }
         employeeTextViews.forEach { it.visibility = View.GONE }
         employeeEditTexts.forEach { it.visibility = View.GONE }
-        employeeSpinner.visibility = View.GONE
+        sectorsSpinner.visibility = View.GONE
 
         // Radio buttons
         val studentRadioButton = findViewById<Button>(R.id.main_base_occupation_student)
@@ -57,7 +90,7 @@ class MainActivity : AppCompatActivity() {
             studentEditTexts.forEach { it.visibility = View.VISIBLE }
             employeeTextViews.forEach { it.visibility = View.GONE }
             employeeEditTexts.forEach { it.visibility = View.GONE }
-            employeeSpinner.visibility = View.GONE
+            sectorsSpinner.visibility = View.GONE
         }
 
         val employeeRadioButton = findViewById<Button>(R.id.main_base_occupation_worker)
@@ -66,45 +99,44 @@ class MainActivity : AppCompatActivity() {
             studentEditTexts.forEach { it.visibility = View.GONE }
             employeeTextViews.forEach { it.visibility = View.VISIBLE }
             employeeEditTexts.forEach { it.visibility = View.VISIBLE }
-            employeeSpinner.visibility = View.VISIBLE
+            sectorsSpinner.visibility = View.VISIBLE
         }
-
-        //TODO spinners setup
 
         // Cancel button
         val cancelButton = findViewById<Button>(R.id.btn_cancel)
         cancelButton.setOnClickListener {
-            //TODO clear all other fields
+            baseEditTexts.forEach { it.text.clear() }
             studentEditTexts.forEach { it.text.clear() }
             employeeEditTexts.forEach { it.text.clear() }
+            additionalEditTexts.forEach { it.text.clear() }
         }
 
         // OK button
         val okButton = findViewById<Button>(R.id.btn_ok)
         okButton.setOnClickListener {
-            //TODO check that fields are not null ?
+            //TODO check that fields are not null or have valid values ?
             val Person = if (studentRadioButton.isSelected) {
                 Student(
-                    findViewById<EditText>(R.id.main_base_name).text.toString(),
-                    findViewById<EditText>(R.id.main_base_firstname).text.toString(),
+                    baseEditTexts[0].text.toString(),
+                    baseEditTexts[1].text.toString(),
                     calendar,
-                    findViewById<EditText>(R.id.nationality).toString(),
-                    findViewById<EditText>(R.id.main_specific_school).text.toString(),
-                    findViewById<EditText>(R.id.main_specific_graduationyear).text.toString().toInt(),
-                    findViewById<EditText>(R.id.main_complementary_email).text.toString(),
-                    findViewById<EditText>(R.id.main_complementary_remarks).text.toString()
+                    nationalitiesSpinner.selectedItem.toString(),
+                    studentEditTexts[0].text.toString(),
+                    studentEditTexts[1].text.toString().toInt(),
+                    additionalEditTexts[0].text.toString(),
+                    additionalEditTexts[1].text.toString()
                 )
             } else {
                 Worker(
-                    findViewById<EditText>(R.id.main_base_name).text.toString(),
-                    findViewById<EditText>(R.id.main_base_firstname).text.toString(),
+                    baseEditTexts[0].text.toString(),
+                    baseEditTexts[1].text.toString(),
                     calendar,
-                    findViewById<EditText>(R.id.nationality).toString(),
-                    findViewById<EditText>(R.id.main_specific_company).text.toString(),
-                    findViewById<Spinner>(R.id.sector).selectedItem.toString(),
-                    findViewById<EditText>(R.id.main_specific_experience).text.toString().toInt(),
-                    findViewById<EditText>(R.id.main_complementary_email).text.toString(),
-                    findViewById<EditText>(R.id.main_complementary_remarks).text.toString()
+                    nationalitiesSpinner.toString(),
+                    employeeEditTexts[0].text.toString(),
+                    sectorsSpinner.selectedItem.toString(),
+                    employeeEditTexts[1].text.toString().toInt(),
+                    additionalEditTexts[0].text.toString(),
+                    additionalEditTexts[1].text.toString()
                 )
             }
 
@@ -123,7 +155,7 @@ class MainActivity : AppCompatActivity() {
                 DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
                     calendar.set(selectedYear, selectedMonth, selectedDay)
                     val birthdateTextView = findViewById<TextView>(R.id.main_base_birthdate)
-                    birthdateTextView.text = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                    birthdateTextView.text = String.format("$selectedDay/${selectedMonth + 1}/$selectedYear")
                 }, year, month, day)
 
             datePickerDialog.show()
