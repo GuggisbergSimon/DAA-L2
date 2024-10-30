@@ -198,7 +198,6 @@
         app:layout_constraintHorizontal_bias="0.5" />
 
     <!-- EMPLOYEE -->
-    <!-- TODO change the constraint to be below occupation radiobuttons and not below student -->
 
     <TextView
         android:id="@+id/main_specific_workers_title"
@@ -270,7 +269,6 @@
         app:layout_constraintHorizontal_bias="0.5" />
 
     <!-- COMPLEMENTARY -->
-    <!-- TODO change the constraint to be below occupation below everything (how ?) -->
 
     <TextView
         android:id="@+id/main_complementary_title"
