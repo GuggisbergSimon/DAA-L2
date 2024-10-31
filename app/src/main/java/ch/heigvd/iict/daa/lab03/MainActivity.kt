@@ -10,8 +10,6 @@ import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import ch.heigvd.iict.daa.labo3.Student
-import ch.heigvd.iict.daa.labo3.Worker
 import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
