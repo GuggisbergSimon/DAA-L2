@@ -116,10 +116,11 @@ class MainActivity : AppCompatActivity() {
 
         // Handle OK button
         val okButton = findViewById<Button>(R.id.btn_ok)
+        val radioGroup = findViewById<RadioGroup>(R.id.main_base_occupation)
         okButton.setOnClickListener {
             val nationality = if (natSpinner.selectedItemPosition == 0) null else natSpinner.selectedItem.toString()
             //TODO check that fields are not null or have valid values ?
-            val Person = if (studentRadioButton.isSelected) {
+            val Person = if (radioGroup.checkedRadioButtonId == R.id.main_base_occupation_student) {
                 Student(
                     baseEditTexts[0].text.toString(),
                     baseEditTexts[1].text.toString(),
@@ -189,7 +190,6 @@ class MainActivity : AppCompatActivity() {
         addChoicesToSpinner(R.array.nationalities, natSpinner)
         addChoicesToSpinner(R.array.sectors, secSpinner)
 
-        val radioGroup = findViewById<RadioGroup>(R.id.main_base_occupation)
         // exampleWorker
         /*
         toggleEmployee(View.VISIBLE)
