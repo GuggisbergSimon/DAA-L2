@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/main_base_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/main_base_title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/main_base_name_title"
-        android:text="@string/main_base_name_title"
         android:layout_width="@dimen/columnWidth"
         android:layout_height="@dimen/lineHeight"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/main_base_title"
+        android:text="@string/main_base_name_title"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@id/main_base_title" />
 
     <EditText
         android:id="@+id/main_base_name"
-        android:hint="@string/main_base_name_title"
         android:layout_width="0dp"
         android:layout_height="@dimen/lineHeight"
-        app:layout_constraintTop_toTopOf="@id/main_base_name_title"
-        app:layout_constraintStart_toEndOf="@id/main_base_name_title"
+        android:hint="@string/main_base_name_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/main_base_name_title"
+        app:layout_constraintTop_toTopOf="@id/main_base_name_title" />
 
     <TextView
         android:id="@+id/main_base_firstname_title"
-        android:text="@string/main_base_firstname_title"
         android:layout_width="@dimen/columnWidth"
         android:layout_height="@dimen/lineHeight"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/main_base_name_title"
+        android:text="@string/main_base_firstname_title"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@id/main_base_name_title" />
 
     <EditText
         android:id="@+id/main_base_firstname"
-        android:hint="@string/main_base_firstname_title"
         android:layout_width="0dp"
         android:layout_height="@dimen/lineHeight"
-        app:layout_constraintTop_toTopOf="@id/main_base_firstname_title"
-        app:layout_constraintStart_toEndOf="@id/main_base_firstname_title"
+        android:hint="@string/main_base_firstname_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/main_base_firstname_title"
+        app:layout_constraintTop_toTopOf="@id/main_base_firstname_title" />
 
     <TextView
         android:id="@+id/main_base_birthdate_title"
-        android:text="@string/main_base_birthdate_title"
         android:layout_width="@dimen/columnWidth"
         android:layout_height="@dimen/lineHeight"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/main_base_firstname_title"
+        android:text="@string/main_base_birthdate_title"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@id/main_base_firstname_title" />
 
     <EditText
         android:id="@+id/main_base_birthdate"
@@ -70,11 +70,11 @@
         android:layout_height="@dimen/lineHeight"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        app:layout_constraintTop_toTopOf="@id/main_base_birthdate_title"
-        app:layout_constraintStart_toEndOf="@id/main_base_birthdate_title"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/main_base_birthdate_title"
+        app:layout_constraintTop_toTopOf="@id/main_base_birthdate_title" />
 
 
     <ImageButton
@@ -83,227 +83,227 @@
         android:layout_height="@dimen/lineHeight"
         android:contentDescription="@string/cake_button"
         android:src="@drawable/cake"
-        app:layout_constraintTop_toTopOf="@id/main_base_birthdate_title"
-        app:layout_constraintStart_toEndOf="@id/main_base_birthdate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/main_base_birthdate"
+        app:layout_constraintTop_toTopOf="@id/main_base_birthdate_title" />
 
 
     <TextView
         android:id="@+id/main_base_nationality_title"
-        android:text="@string/main_base_nationality_title"
         android:layout_width="@dimen/columnWidth"
         android:layout_height="@dimen/lineHeight"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/main_base_birthdate_title"
+        android:text="@string/main_base_nationality_title"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@id/main_base_birthdate_title" />
 
     <Spinner
         android:id="@+id/nationality"
         android:layout_width="0dp"
         android:layout_height="@dimen/lineHeight"
-        app:layout_constraintTop_toTopOf="@id/main_base_nationality_title"
-        app:layout_constraintStart_toEndOf="@id/main_base_nationality_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/main_base_nationality_title"
+        app:layout_constraintTop_toTopOf="@id/main_base_nationality_title" />
 
     <TextView
         android:id="@+id/main_base_occupation_title"
-        android:text="@string/main_base_occupation_title"
         android:layout_width="@dimen/columnWidth"
         android:layout_height="@dimen/lineHeight"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/main_base_nationality_title"
+        android:text="@string/main_base_occupation_title"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@id/main_base_nationality_title" />
 
     <RadioGroup
         android:id="@+id/main_base_occupation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/main_base_occupation_title"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5">
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_base_occupation_title">
 
         <RadioButton
             android:id="@+id/main_base_occupation_student"
-            android:text="@string/main_base_occupation_student"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/main_base_occupation_student" />
 
         <RadioButton
             android:id="@+id/main_base_occupation_worker"
-            android:text="@string/main_base_occupation_worker"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/main_base_occupation_worker" />
     </RadioGroup>
 
     <!-- STUDENT -->
     <TextView
         android:id="@+id/main_specific_students_title"
-        android:text="@string/main_specific_students_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/main_base_occupation"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/main_specific_students_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_base_occupation" />
 
     <TextView
         android:id="@+id/main_specific_school_title"
-        android:text="@string/main_specific_school_title"
         android:layout_width="@dimen/columnWidth"
         android:layout_height="@dimen/lineHeight"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/main_specific_students_title"
+        android:text="@string/main_specific_school_title"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@id/main_specific_students_title" />
 
     <EditText
         android:id="@+id/main_specific_school"
-        android:hint="@string/main_specific_school_title"
         android:layout_width="0dp"
         android:layout_height="@dimen/lineHeight"
-        app:layout_constraintTop_toTopOf="@id/main_specific_school_title"
-        app:layout_constraintStart_toEndOf="@id/main_specific_school_title"
+        android:hint="@string/main_specific_school_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/main_specific_school_title"
+        app:layout_constraintTop_toTopOf="@id/main_specific_school_title" />
 
     <TextView
         android:id="@+id/main_specific_graduationyear_title"
-        android:text="@string/main_specific_graduationyear_title"
         android:layout_width="@dimen/columnWidth"
         android:layout_height="@dimen/lineHeight"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/main_specific_school_title"
+        android:text="@string/main_specific_graduationyear_title"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@id/main_specific_school_title" />
 
     <EditText
         android:id="@+id/main_specific_graduationyear"
-        android:hint="@string/main_specific_graduationyear_title"
         android:layout_width="0dp"
         android:layout_height="@dimen/lineHeight"
-        app:layout_constraintTop_toTopOf="@id/main_specific_graduationyear_title"
-        app:layout_constraintStart_toEndOf="@id/main_specific_graduationyear_title"
+        android:hint="@string/main_specific_graduationyear_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/main_specific_graduationyear_title"
+        app:layout_constraintTop_toTopOf="@id/main_specific_graduationyear_title" />
 
     <!-- EMPLOYEE -->
 
     <TextView
         android:id="@+id/main_specific_workers_title"
-        android:text="@string/main_specific_workers_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/main_specific_graduationyear"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/main_specific_workers_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_specific_graduationyear" />
 
     <TextView
         android:id="@+id/main_specific_company_title"
-        android:text="@string/main_specific_company_title"
         android:layout_width="@dimen/columnWidth"
         android:layout_height="@dimen/lineHeight"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/main_specific_workers_title"
+        android:text="@string/main_specific_company_title"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@id/main_specific_workers_title" />
 
     <EditText
         android:id="@+id/main_specific_company"
-        android:hint="@string/main_specific_company_title"
         android:layout_width="0dp"
         android:layout_height="@dimen/lineHeight"
-        app:layout_constraintTop_toTopOf="@id/main_specific_company_title"
-        app:layout_constraintStart_toEndOf="@id/main_specific_company_title"
+        android:hint="@string/main_specific_company_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/main_specific_company_title"
+        app:layout_constraintTop_toTopOf="@id/main_specific_company_title" />
 
     <TextView
         android:id="@+id/main_specific_sector_title"
-        android:text="@string/main_specific_sector_title"
         android:layout_width="@dimen/columnWidth"
         android:layout_height="@dimen/lineHeight"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/main_specific_company_title"
+        android:text="@string/main_specific_sector_title"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@id/main_specific_company_title" />
 
     <Spinner
         android:id="@+id/sector"
         android:layout_width="0dp"
         android:layout_height="@dimen/lineHeight"
-        app:layout_constraintTop_toTopOf="@id/main_specific_sector_title"
-        app:layout_constraintStart_toEndOf="@id/main_specific_sector_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/main_specific_sector_title"
+        app:layout_constraintTop_toTopOf="@id/main_specific_sector_title" />
 
     <TextView
         android:id="@+id/main_specific_experience_title"
-        android:text="@string/main_specific_experience_title"
         android:layout_width="@dimen/columnWidth"
         android:layout_height="@dimen/lineHeight"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/main_specific_sector_title"
+        android:text="@string/main_specific_experience_title"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@id/main_specific_sector_title" />
 
     <EditText
         android:id="@+id/main_specific_experience"
-        android:hint="@string/main_specific_experience_title"
         android:layout_width="0dp"
         android:layout_height="@dimen/lineHeight"
-        app:layout_constraintTop_toTopOf="@id/main_specific_experience_title"
-        app:layout_constraintStart_toEndOf="@id/main_specific_experience_title"
+        android:hint="@string/main_specific_experience_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/main_specific_experience_title"
+        app:layout_constraintTop_toTopOf="@id/main_specific_experience_title" />
 
     <!-- COMPLEMENTARY -->
 
     <TextView
         android:id="@+id/main_complementary_title"
-        android:text="@string/additional_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/main_specific_experience_title"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/additional_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_specific_experience_title" />
 
     <TextView
         android:id="@+id/main_complementary_email_title"
-        android:text="@string/additional_email_title"
         android:layout_width="@dimen/columnWidth"
         android:layout_height="@dimen/lineHeight"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/main_complementary_title"
+        android:text="@string/additional_email_title"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@id/main_complementary_title" />
 
     <EditText
         android:id="@+id/main_complementary_email"
-        android:hint="@string/additional_email_title"
         android:layout_width="0dp"
         android:layout_height="@dimen/lineHeight"
-        app:layout_constraintTop_toTopOf="@id/main_complementary_email_title"
-        app:layout_constraintStart_toEndOf="@id/main_complementary_email_title"
+        android:hint="@string/additional_email_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/main_complementary_email_title"
+        app:layout_constraintTop_toTopOf="@id/main_complementary_email_title" />
 
     <TextView
         android:id="@+id/main_complementary_remarks_title"
-        android:text="@string/additional_remarks_title"
         android:layout_width="@dimen/columnWidth"
         android:layout_height="@dimen/lineHeight"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/main_complementary_email_title"
+        android:text="@string/additional_remarks_title"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@id/main_complementary_email_title" />
 
     <EditText
         android:id="@+id/main_complementary_remarks"
@@ -311,33 +311,30 @@
         android:layout_height="wrap_content"
         android:gravity="top|start"
         android:hint="@string/additional_remarks_title"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:imeOptions="actionDone"
+        android:inputType="textMultiLine|textAutoCorrect"
         android:scrollbars="vertical"
-        android:imeOptions="flagNoEnterAction"
-        android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
-        app:layout_constraintTop_toBottomOf="@id/main_complementary_remarks_title"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@id/main_complementary_remarks_title" />
 
     <Button
         android:id="@+id/btn_cancel"
-        android:text="@string/btn_cancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/main_complementary_remarks"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/btn_cancel"
         app:layout_constraintEnd_toStartOf="@id/btn_ok"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_complementary_remarks" />
 
     <Button
         android:id="@+id/btn_ok"
-        android:text="@string/btn_ok"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/main_complementary_remarks"
-        app:layout_constraintStart_toEndOf="@id/btn_cancel"
+        android:text="@string/btn_ok"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
-
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/btn_cancel"
+        app:layout_constraintTop_toBottomOf="@id/main_complementary_remarks" />
 </androidx.constraintlayout.widget.ConstraintLayout>
