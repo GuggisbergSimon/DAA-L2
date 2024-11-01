@@ -10,6 +10,8 @@ import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ReportFragment.Companion.reportFragment
+import java.time.Year
 import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
@@ -19,39 +21,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Base fields
+        // Lookup fields
+        val birthdateTextView = findViewById<EditText>(R.id.main_base_birthdate)
+        val nationalitiesSpinner = findViewById<Spinner>(R.id.nationality)
+        val sectorsSpinner = findViewById<Spinner>(R.id.sector)
         val baseEditTexts = listOf(
             findViewById<EditText>(R.id.main_base_name),
             findViewById<EditText>(R.id.main_base_firstname),
         )
-
-        // Additional fields
         val additionalEditTexts = listOf(
             findViewById<EditText>(R.id.main_complementary_email),
             findViewById<EditText>(R.id.main_complementary_remarks),
         )
-
-        // Nationalities spinner
-        val nationalitiesSpinner = findViewById<Spinner>(R.id.nationality)
-        val nationalitiesAdapter = ArrayAdapter.createFromResource(
-            this,
-            R.array.nationalities,
-            android.R.layout.simple_spinner_item
-        )
-        nationalitiesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        nationalitiesSpinner.adapter = nationalitiesAdapter
-
-        // Sectors spinner
-        val sectorsSpinner = findViewById<Spinner>(R.id.sector)
-        val sectorsAdapter = ArrayAdapter.createFromResource(
-            this,
-            R.array.sectors,
-            android.R.layout.simple_spinner_item
-        )
-        sectorsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        sectorsSpinner.adapter = sectorsAdapter
-
-        // Student fields
         val studentTextViews = listOf(
             findViewById<TextView>(R.id.main_specific_students_title),
             findViewById<TextView>(R.id.main_specific_school_title),
@@ -61,8 +42,6 @@ class MainActivity : AppCompatActivity() {
             findViewById<EditText>(R.id.main_specific_school),
             findViewById<EditText>(R.id.main_specific_graduationyear),
         )
-
-        // Employee fields
         val employeeTextViews = listOf(
             findViewById<TextView>(R.id.main_specific_workers_title),
             findViewById<TextView>(R.id.main_specific_company_title),
@@ -74,33 +53,51 @@ class MainActivity : AppCompatActivity() {
             findViewById<EditText>(R.id.main_specific_experience),
         )
 
-        // Hide all student and employee fields
-        studentTextViews.forEach { it.visibility = View.GONE }
-        studentEditTexts.forEach { it.visibility = View.GONE }
-        employeeTextViews.forEach { it.visibility = View.GONE }
-        employeeEditTexts.forEach { it.visibility = View.GONE }
-        sectorsSpinner.visibility = View.GONE
+        // Helper functions
+        fun toggleStudent(visibility: Int) {
+            studentTextViews.forEach { it.visibility = visibility }
+            studentEditTexts.forEach { it.visibility = visibility }
+        }
 
-        // Radio buttons
+        fun toggleEmployee(visibility: Int) {
+            employeeTextViews.forEach { it.visibility = visibility }
+            employeeEditTexts.forEach { it.visibility = visibility }
+            sectorsSpinner.visibility = visibility
+        }
+
+        fun setBirthday(year: Int, month: Int, day: Int) {
+            calendar.set(year, month, day)
+            birthdateTextView.setText(String.format("$day/${month + 1}/$year"))
+        }
+
+        fun addChoicesToSpinner(array: Int, spinner: Spinner) {
+            val adapter = ArrayAdapter.createFromResource(
+                this,
+                array,
+                android.R.layout.simple_spinner_item
+            )
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
+
+        // Hide all student and employee fields
+        toggleStudent(View.GONE)
+        toggleEmployee(View.GONE)
+
+        // Handle Radio buttons
         val studentRadioButton = findViewById<Button>(R.id.main_base_occupation_student)
         studentRadioButton.setOnClickListener {
-            studentTextViews.forEach { it.visibility = View.VISIBLE }
-            studentEditTexts.forEach { it.visibility = View.VISIBLE }
-            employeeTextViews.forEach { it.visibility = View.GONE }
-            employeeEditTexts.forEach { it.visibility = View.GONE }
-            sectorsSpinner.visibility = View.GONE
+            toggleStudent(View.VISIBLE)
+            toggleEmployee(View.GONE)
         }
 
         val employeeRadioButton = findViewById<Button>(R.id.main_base_occupation_worker)
         employeeRadioButton.setOnClickListener {
-            studentTextViews.forEach { it.visibility = View.GONE }
-            studentEditTexts.forEach { it.visibility = View.GONE }
-            employeeTextViews.forEach { it.visibility = View.VISIBLE }
-            employeeEditTexts.forEach { it.visibility = View.VISIBLE }
-            sectorsSpinner.visibility = View.VISIBLE
+            toggleStudent(View.GONE)
+            toggleEmployee(View.VISIBLE)
         }
 
-        // Cancel button
+        // Handle Cancel button
         val cancelButton = findViewById<Button>(R.id.btn_cancel)
         cancelButton.setOnClickListener {
             baseEditTexts.forEach { it.text.clear() }
@@ -109,7 +106,7 @@ class MainActivity : AppCompatActivity() {
             additionalEditTexts.forEach { it.text.clear() }
         }
 
-        // OK button
+        // Handle OK button
         val okButton = findViewById<Button>(R.id.btn_ok)
         okButton.setOnClickListener {
             //TODO check that fields are not null or have valid values ?
@@ -141,8 +138,7 @@ class MainActivity : AppCompatActivity() {
             println("created : $Person")
         }
 
-        // Calendar and DatePickerDialog
-        calendar = Calendar.getInstance()
+        // Handle DatePickerDialog button
         val cakeButton = findViewById<ImageButton>(R.id.cake)
         cakeButton.setOnClickListener {
             val year = calendar.get(Calendar.YEAR)
@@ -151,12 +147,58 @@ class MainActivity : AppCompatActivity() {
 
             val datePickerDialog =
                 DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-                    calendar.set(selectedYear, selectedMonth, selectedDay)
-                    val birthdateTextView = findViewById<TextView>(R.id.main_base_birthdate)
-                    birthdateTextView.text = String.format("$selectedDay/${selectedMonth + 1}/$selectedYear")
+                    setBirthday(selectedYear, selectedMonth, selectedDay)
                 }, year, month, day)
 
             datePickerDialog.show()
         }
+
+        // Init Birthdate
+        calendar = Calendar.getInstance()
+        setBirthday(
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+
+        // Init spinners
+        addChoicesToSpinner(R.array.nationalities, nationalitiesSpinner)
+        addChoicesToSpinner(R.array.sectors, sectorsSpinner)
+
+        // exampleWorker
+        setBirthday(
+            Person.exampleWorker.birthDay.get(Calendar.YEAR),
+            Person.exampleWorker.birthDay.get(Calendar.MONTH),
+            Person.exampleWorker.birthDay.get(Calendar.DAY_OF_MONTH)
+        )
+        baseEditTexts[0].setText(Person.exampleWorker.name)
+        baseEditTexts[1].setText(Person.exampleWorker.firstName)
+        nationalitiesSpinner.setSelection(
+            (nationalitiesSpinner.adapter as ArrayAdapter<String>).getPosition(
+                Person.exampleWorker))
+        employeeEditTexts[0].setText(Person.exampleWorker.company)
+        sectorsSpinner.setSelection(
+            (sectorsSpinner.adapter as ArrayAdapter<String>).getPosition(
+                Person.exampleWorker.sector))
+        employeeEditTexts[1].setText(Person.exampleWorker.experienceYear.toString())
+        additionalEditTexts[0].setText(Person.exampleWorker.email)
+        additionalEditTexts[1].setText(Person.exampleWorker.remark)
+
+
+        // exampleStudent
+        setBirthday(
+            Person.exampleStudent.birthDay.get(Calendar.YEAR),
+            Person.exampleStudent.birthDay.get(Calendar.MONTH),
+            Person.exampleStudent.birthDay.get(Calendar.DAY_OF_MONTH)
+        )
+        baseEditTexts[0].setText(Person.exampleStudent.name)
+        baseEditTexts[1].setText(Person.exampleStudent.firstName)
+        nationalitiesSpinner.setSelection(
+            (nationalitiesSpinner.adapter as ArrayAdapter<String>).getPosition(
+                Person.exampleStudent))
+        studentEditTexts[0].setText(Person.exampleStudent.university)
+        studentEditTexts[1].setText(Person.exampleStudent.graduationYear.toString())
+        additionalEditTexts[0].setText(Person.exampleStudent.email)
+        additionalEditTexts[1].setText(Person.exampleStudent.remark)
     }
 }
