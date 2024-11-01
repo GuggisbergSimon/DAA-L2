@@ -64,18 +64,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_base_firstname_title" />
 
+
     <EditText
         android:id="@+id/main_base_birthdate"
-        android:layout_width="@dimen/columnWidth"
+        android:layout_width="0dp"
         android:layout_height="@dimen/lineHeight"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toStartOf="@id/cake"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@id/main_base_birthdate_title"
         app:layout_constraintTop_toTopOf="@id/main_base_birthdate_title" />
-
 
     <ImageButton
         android:id="@+id/cake"
@@ -85,7 +85,6 @@
         android:src="@drawable/cake"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@id/main_base_birthdate"
         app:layout_constraintTop_toTopOf="@id/main_base_birthdate_title" />
 
 
@@ -187,6 +186,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/lineHeight"
         android:hint="@string/main_specific_graduationyear_title"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@id/main_specific_graduationyear_title"
@@ -258,6 +258,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/lineHeight"
         android:hint="@string/main_specific_experience_title"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@id/main_specific_experience_title"

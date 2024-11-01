@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -103,6 +104,14 @@ class MainActivity : AppCompatActivity() {
             studentEditTexts.forEach { it.text.clear() }
             employeeEditTexts.forEach { it.text.clear() }
             additionalEditTexts.forEach { it.text.clear() }
+            natSpinner.setSelection(0)
+            secSpinner.setSelection(0)
+            birthday = Calendar.getInstance()
+            setBirthday(
+                birthday.get(Calendar.YEAR),
+                birthday.get(Calendar.MONTH),
+                birthday.get(Calendar.DAY_OF_MONTH)
+            )
         }
 
         // Handle OK button
@@ -180,7 +189,10 @@ class MainActivity : AppCompatActivity() {
         addChoicesToSpinner(R.array.nationalities, natSpinner)
         addChoicesToSpinner(R.array.sectors, secSpinner)
 
+        val radioGroup = findViewById<RadioGroup>(R.id.main_base_occupation)
         // exampleWorker
+        /*
+        toggleEmployee(View.VISIBLE)
         setBirthday(
             Person.exampleWorker.birthDay.get(Calendar.YEAR),
             Person.exampleWorker.birthDay.get(Calendar.MONTH),
@@ -190,15 +202,18 @@ class MainActivity : AppCompatActivity() {
         baseEditTexts[1].setText(Person.exampleWorker.firstName)
         natSpinner.setSelection(
             (natSpinner.adapter as ArrayAdapter<String>).getPosition(Person.exampleWorker.nationality))
-        employeeRadioButton.isSelected = true
+        radioGroup.check(R.id.main_base_occupation_worker)
         employeeEditTexts[0].setText(Person.exampleWorker.company)
         secSpinner.setSelection(
             (secSpinner.adapter as ArrayAdapter<String>).getPosition(Person.exampleWorker.sector))
         employeeEditTexts[1].setText(Person.exampleWorker.experienceYear.toString())
         additionalEditTexts[0].setText(Person.exampleWorker.email)
         additionalEditTexts[1].setText(Person.exampleWorker.remark)
+        */
 
         // exampleStudent
+        /*
+        toggleStudent(View.VISIBLE)
         setBirthday(
             Person.exampleStudent.birthDay.get(Calendar.YEAR),
             Person.exampleStudent.birthDay.get(Calendar.MONTH),
@@ -208,10 +223,11 @@ class MainActivity : AppCompatActivity() {
         baseEditTexts[1].setText(Person.exampleStudent.firstName)
         natSpinner.setSelection(
             (natSpinner.adapter as ArrayAdapter<String>).getPosition(Person.exampleStudent.nationality))
-        studentRadioButton.isSelected = true
+        radioGroup.check(R.id.main_base_occupation_student)
         studentEditTexts[0].setText(Person.exampleStudent.university)
         studentEditTexts[1].setText(Person.exampleStudent.graduationYear.toString())
         additionalEditTexts[0].setText(Person.exampleStudent.email)
         additionalEditTexts[1].setText(Person.exampleStudent.remark)
+         */
     }
 }

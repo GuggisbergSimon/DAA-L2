@@ -44,7 +44,8 @@ dateEditText.setText(dateFormat.format(calendar.time))
 
 ### Si vous avez utilisé le DatePickerDialog du SDK. En cas de rotation de l’écran du smartphone lorsque le dialogue est ouvert, une exception android.view.WindowLeaked sera présente dans les logs, à quoi est-elle due ?
 
-//TODO
+Cette exception est due à la destruction du DatePickerDialog lors de la rotation de l'écran.
+La fenêtre du DatePickerDialog est détruite alors qu'elle est toujours ouverte, ce qui provoque cette exception
 
 ## 4.4 Lors du remplissage des champs textuels, vous pouvez constater que le bouton « suivant » présent sur le clavier virtuel permet de sauter automatiquement au prochain champ à saisir
 
@@ -64,7 +65,10 @@ Hint : Le champ remark, multilignes, peut provoquer des effets de bords en fonct
 virtuel utilisé sur votre smartphone. Vous pouvez l’échanger avec le champ e-mail pour faciliter vos
 recherches concernant la réponse à cette question.
 
-Il faut ajouter cette propriété dans l'EditText du dernier champ, celui-ci remarques :
+Il faut ajouter cette propriété dans l'EditText du dernier champ, "remarques" :
+
+//TODO untested
+
 ```
 android:imeOptions="actionDone"
 ```
