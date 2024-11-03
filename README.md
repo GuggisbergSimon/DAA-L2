@@ -31,13 +31,19 @@ britannique serait 12th June 1996 et en anglais américain June 12, 1996.
 
 ### Comment peut-on gérer cela au mieux ?
 
-En se basant sur le format de date de l'utilisateur, on peut utiliser la locale de l'utilisateur
-pour formater la date.
+En utilisant la locale de l'utilisateur, on peut formater la date de manière à ce qu'elle soit affichée au format habituel de l'utilisateur.
 
 ```kotlin
-val dateFormat =
-    java.text.DateFormat.getDateInstance(java.text.DateFormat.LONG, Locale.getDefault())
-dateEditText.setText(dateFormat.format(calendar.time))
+val britishPattern = "d'th' MMMM yyyy"    // 12th June 1996
+val americanPattern = "MMMM d, yyyy"      // June 12, 1996
+
+val dateFormatter = when (Locale.getDefault()) {
+        Locale.UK -> DateTimeFormatter.ofPattern(britishPattern, Locale.UK)
+        Locale.US -> DateTimeFormatter.ofPattern(americanPattern, Locale.US)
+        else -> DateTimeFormatter.ofPattern(americanPattern, Locale.getDefault())
+    }
+
+String formattedDate = dateFormatter.format(date)
 ```
 
 ## 4.3 Veuillez choisir une question en fonction de votre choix d’implémentation :
@@ -45,7 +51,16 @@ dateEditText.setText(dateFormat.format(calendar.time))
 ### Si vous avez utilisé le DatePickerDialog du SDK. En cas de rotation de l’écran du smartphone lorsque le dialogue est ouvert, une exception android.view.WindowLeaked sera présente dans les logs, à quoi est-elle due ?
 
 Cette exception est due à la destruction du DatePickerDialog lors de la rotation de l'écran.
-La fenêtre du DatePickerDialog est détruite alors qu'elle est toujours ouverte, ce qui provoque cette exception
+La fenêtre du DatePickerDialog est détruite alors qu'elle est toujours ouverte, ce qui provoque cette exception.
+
+Il faut donc s'assurer de fermer le DatePickerDialog lors de la destruction de l'activité afin d'éviter cette exception.
+
+```kotlin
+override fun onDestroy() {
+    super.onDestroy()
+    datePickerDialog?.dismiss()
+}
+```
 
 ## 4.4 Lors du remplissage des champs textuels, vous pouvez constater que le bouton « suivant » présent sur le clavier virtuel permet de sauter automatiquement au prochain champ à saisir
 
@@ -67,11 +82,11 @@ recherches concernant la réponse à cette question.
 
 Il faut ajouter cette propriété dans l'EditText du dernier champ, "remarques" :
 
-//TODO untested
-
 ```
 android:imeOptions="actionDone"
 ```
+
+Ensuite, on peut écouter l'événement IME_ACTION_DONE pour déclencher le clic sur le bouton de validation.
 
 ```kotlin
 val lastField = findViewById<EditText>(R.id.lastField)
