@@ -119,36 +119,59 @@ class MainActivity : AppCompatActivity() {
         val okButton = findViewById<Button>(R.id.btn_ok)
         val radioGroup = findViewById<RadioGroup>(R.id.main_base_occupation)
         okButton.setOnClickListener {
+            // Retrieve the nationality from the spinner
             val nationality = if (natSpinner.selectedItemPosition == 0) null else natSpinner.selectedItem.toString()
-            //TODO check that fields are not null or have valid values ?
-            val Person = if (radioGroup.checkedRadioButtonId == R.id.main_base_occupation_student) {
+
+            // Create a variable to hold the Person object
+            val person: Any? // Use Any? to accommodate both Student and Worker types
+
+            // Check for null values
+            val baseField1 = baseEditTexts[0].text.toString()
+            val baseField2 = baseEditTexts[1].text.toString()
+            val studentField1 = studentEditTexts[0].text.toString()
+            val studentField2 = studentEditTexts[1].text.toString()
+            val additionalField1 = additionalEditTexts[0].text.toString()
+            val additionalField2 = additionalEditTexts[1].text.toString()
+
+            if (baseField1.isEmpty() || baseField2.isEmpty() || nationality == null ||
+                (radioGroup.checkedRadioButtonId == R.id.main_base_occupation_student && (studentField1.isEmpty() || studentField2.isEmpty())) ||
+                (radioGroup.checkedRadioButtonId == R.id.main_base_occupation_worker && (secSpinner.selectedItemPosition == 0 || additionalField1.isEmpty() || additionalField2.isEmpty()))) {
+
+                // Display an error message if any of the fields are empty
+                println("Error: One or more fields are empty")
+                return@setOnClickListener
+            }
+
+            // Create the Person object based on the selected occupation
+            person = if (radioGroup.checkedRadioButtonId == R.id.main_base_occupation_student) {
                 Student(
-                    baseEditTexts[0].text.toString(),
-                    baseEditTexts[1].text.toString(),
+                    baseField1,
+                    baseField2,
                     birthday,
-                    nationality.toString(),
-                    studentEditTexts[0].text.toString(),
-                    studentEditTexts[1].text.toString().toInt(),
-                    additionalEditTexts[0].text.toString(),
-                    additionalEditTexts[1].text.toString()
+                    nationality,
+                    studentField1,
+                    studentField2.toInt(),
+                    additionalField1,
+                    additionalField2
                 )
             } else {
-                val sector = if (secSpinner.selectedItemPosition == 0) null else secSpinner.selectedItem.toString()
+                val sector = secSpinner.selectedItem.toString()
                 Worker(
-                    baseEditTexts[0].text.toString(),
-                    baseEditTexts[1].text.toString(),
+                    baseField1,
+                    baseField2,
                     birthday,
-                    nationality.toString(),
+                    nationality,
                     employeeEditTexts[0].text.toString(),
-                    sector.toString(),
+                    sector,
                     employeeEditTexts[1].text.toString().toInt(),
-                    additionalEditTexts[0].text.toString(),
-                    additionalEditTexts[1].text.toString()
+                    additionalField1,
+                    additionalField2
                 )
             }
 
-            println("created : $Person")
+            println("created : $person")
         }
+
 
         // Handle DatePickerDialog button
         val cakeButton = findViewById<ImageButton>(R.id.cake)
