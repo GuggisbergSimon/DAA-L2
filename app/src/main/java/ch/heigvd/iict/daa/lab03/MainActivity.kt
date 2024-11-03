@@ -17,6 +17,7 @@ import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private lateinit var birthday: Calendar
+    private var datePickerDialog: DatePickerDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -156,12 +157,12 @@ class MainActivity : AppCompatActivity() {
             val month = birthday.get(Calendar.MONTH)
             val day = birthday.get(Calendar.DAY_OF_MONTH)
 
-            val datePickerDialog =
+            datePickerDialog =
                 DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
                     setBirthday(selectedYear, selectedMonth, selectedDay)
                 }, year, month, day)
 
-            datePickerDialog.show()
+            datePickerDialog?.show()
         }
 
         // Handle actionDone
@@ -229,5 +230,9 @@ class MainActivity : AppCompatActivity() {
         additionalEditTexts[0].setText(Person.exampleStudent.email)
         additionalEditTexts[1].setText(Person.exampleStudent.remark)
          */
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        datePickerDialog?.dismiss()
     }
 }
