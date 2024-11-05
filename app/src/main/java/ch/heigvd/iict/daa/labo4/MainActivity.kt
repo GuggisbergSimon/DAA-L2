@@ -1,4 +1,4 @@
-package ch.heigvd.iict.daa.template
+package ch.heigvd.iict.daa.labo4
 
 import android.annotation.SuppressLint
 import android.os.Bundle
