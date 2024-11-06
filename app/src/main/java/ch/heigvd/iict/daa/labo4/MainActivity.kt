@@ -1,20 +1,20 @@
 package ch.heigvd.iict.daa.labo4
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 
-import android.widget.Toast
-
 class MainActivity : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val monButton = findViewById<Button>(R.id.main_login_button)
-        monButton.setOnClickListener {
-            Toast.makeText(this, "Click", Toast.LENGTH_SHORT).show();
-        }
+        /* TODO phase 2
+        - La MainActivity et ses Layouts (smartphone et tablette) ;
+        - Le Menu associé à l’Activité (tri par date de création, tri par date de réalisation prévue, création
+          d’une Note (aléatoire) et suppression de toutes les Notes ;
+        - Le Fragment et son Layout affichant la liste des Notes ;
+        - Le Fragment et son Layout qui contiendra le compteur et deux boutons de contrôles (sur
+          tablette uniquement, remplaçant les entrées du Menu permettant la création aléatoire d’une
+          Note et la suppression de toutes les Notes).
+         */
     }
 }
