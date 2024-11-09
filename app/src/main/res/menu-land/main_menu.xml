@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/main_menu_sort"
+        android:icon="@drawable/sort"
+        android:title="@string/Sort"
+        app:showAsAction="ifRoom|withText">
+        <menu>
+            <item
+                android:id="@+id/main_menu_sortDate"
+                android:title="@string/CreationDate" />
+            <item
+                android:id="@+id/main_menu_sortETA"
+                android:title="@string/ETA" />
+        </menu>
+    </item>
+</menu>

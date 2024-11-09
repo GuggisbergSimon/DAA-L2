@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">labo4</string>
-    <string name="welcome">Welcome to DAA!</string>
-    <string name="main_login_title">Log-in</string>
-    <string name="main_login_username">Username</string>
-    <string name="main_login_password">Password</string>
-    <string name="main_login_connect">Connect</string>
+    <string name="Sort">Sort</string>
+    <string name="CreationDate">Creation date</string>
+    <string name="ETA">ETA</string>
+    <string name="Generate">Generate</string>
+    <string name="DeleteAll">Delete all</string>
 </resources>
