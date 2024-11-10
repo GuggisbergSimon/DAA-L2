@@ -9,13 +9,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ch.heigvd.iict.daa.labo4.models.State
-import ch.heigvd.iict.daa.labo4.models.Note
+import ch.heigvd.iict.daa.labo4.models.NoteAndSchedule
 import ch.heigvd.iict.daa.labo4.models.Type
+import java.util.Calendar
 import java.util.Locale
 
-class MyRecyclerAdapter(_items: List<Note> = listOf()) :
-    RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder>() {
-    var items = listOf<Note>()
+class RecyclerAdapter(_items: List<NoteAndSchedule> = listOf()) :
+    RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+    var items = listOf<NoteAndSchedule>()
         set(value) {
             val diffCallback = NotesDiffCallback(items, value)
             val diffItems = DiffUtil.calculateDiff(diffCallback)
@@ -30,14 +31,26 @@ class MyRecyclerAdapter(_items: List<Note> = listOf()) :
     override fun getItemCount() = items.size
 
     override fun getItemViewType(position: Int): Int {
-        //TODO if needed
-        return 0
+        if (items[position].schedule != null) {
+            return SCHEDULE
+        }
+        return NOTE
+    }
+
+    companion object {
+        private const val NOTE = 1
+        private const val SCHEDULE = 2
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
-        )
+        return when (viewType) {
+            SCHEDULE -> ViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.list_item_schedule, parent, false)
+            )
+            else -> ViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.list_item_note, parent, false)
+            )
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -50,9 +63,10 @@ class MyRecyclerAdapter(_items: List<Note> = listOf()) :
         private val text = view.findViewById<TextView>(R.id.list_item_text)
         private val progressIcon = view.findViewById<ImageView>(R.id.list_item_progress_icon)
         private val progressText = view.findViewById<TextView>(R.id.list_item_progress_text)
-        fun bind(note: Note) {
+
+        fun bind(ns: NoteAndSchedule) {
             icon?.setImageResource(
-                when (note.type) {
+                when (ns.note.type) {
                     Type.NONE -> R.drawable.note
                     Type.SHOPPING -> R.drawable.shopping
                     Type.TODO -> R.drawable.todo
@@ -61,23 +75,23 @@ class MyRecyclerAdapter(_items: List<Note> = listOf()) :
                 }
             )
 
-            if (note.state == State.DONE) {
+            if (ns.note.state == State.DONE) {
                 icon?.setColorFilter(ContextCompat.getColor(itemView.context, R.color.green))
-                progressIcon?.visibility = View.INVISIBLE
-                progressText?.visibility = View.INVISIBLE
-            } else {
-                val dateFormat = java.text.DateFormat.getDateInstance(
-                    java.text.DateFormat.LONG,
-                    Locale.getDefault()
-                )
-                //TODO write the difference in months between creation date and now
-                //TODO define how long is late
-                //TODO make the progressIcon red if late
-                progressText?.text = dateFormat.format(note.creationDate.time)
             }
 
-            title?.text = note.title
-            text?.text = note.text
+            if (ns.schedule != null) {
+                val today = Calendar.getInstance()
+                val monthsDifference = ns.schedule.date.get(Calendar.MONTH) - today.get(Calendar.MONTH)
+                if (monthsDifference < 0) {
+                    progressText?.text = itemView.context.getString(R.string.Late)
+                    progressIcon?.setColorFilter(ContextCompat.getColor(itemView.context, R.color.red))
+                } else {
+                    progressText?.text = String.format("$monthsDifference " + itemView.context.getString(R.string.Months))
+                }
+            }
+
+            title?.text = ns.note.title
+            text?.text = ns.note.text
         }
     }
 }

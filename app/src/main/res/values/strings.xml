@@ -7,5 +7,7 @@
     <string name="DeleteAll">Delete all</string>
     <string name="Icon">Icon</string>
     <string name="Progress">Progress</string>
+    <string name="Late">Late</string>
+    <string name="Months">months</string>
     <string name="Lorem">Lorem Ipsum Dolores</string>
 </resources>
