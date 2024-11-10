@@ -5,9 +5,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import ch.heigvd.iict.daa.labo4.models.Note
 
 class MainActivity : AppCompatActivity() {
     private val notesViewModel: NotesViewModel by viewModels()
@@ -44,20 +41,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val recycler = findViewById<RecyclerView>(R.id.recycler)
-        val adapter = MyRecyclerAdapter()
-        recycler.adapter = adapter
-        recycler.layoutManager = LinearLayoutManager(this)
-        adapter.items = listOf(
-            Note.generateRandomNote(),
-            Note.generateRandomNote(),
-            Note.generateRandomNote(),
-            Note.generateRandomNote(),
-            Note.generateRandomNote(),
-            Note.generateRandomNote(),
-            Note.generateRandomNote(),
-        )
-
         /* TODO phase 2
         - La MainActivity et ses Layouts (smartphone et tablette) ;
         - Le Fragment et son Layout affichant la liste des Notes ;
@@ -67,11 +50,3 @@ class MainActivity : AppCompatActivity() {
          */
     }
 }
-
-abstract class Animal(var name : String, val id: Long = ++Animal.id) {
-    companion object {
-        private var id = 0L
-    }
-}
-class Mammal(name : String) : Animal(name)
-class Aves(name : String) : Animal(name)

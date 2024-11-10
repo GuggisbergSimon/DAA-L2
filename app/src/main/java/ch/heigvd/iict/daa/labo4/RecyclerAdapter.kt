@@ -63,10 +63,8 @@ class MyRecyclerAdapter(_items: List<Note> = listOf()) :
                 progressIcon?.visibility = View.INVISIBLE
                 progressText?.visibility = View.INVISIBLE
             } else {
-                icon?.clearColorFilter()
-                progressIcon?.visibility = View.VISIBLE
-                progressText?.visibility = View.VISIBLE
                 val dateFormat = java.text.DateFormat.getDateInstance(java.text.DateFormat.LONG, Locale.getDefault())
+                //TODO make the progressIcon red if past a due date
                 progressText?.text = dateFormat.format(note.creationDate.time)
             }
 
