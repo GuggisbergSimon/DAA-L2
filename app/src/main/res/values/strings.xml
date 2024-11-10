@@ -5,4 +5,7 @@
     <string name="ETA">ETA</string>
     <string name="Generate">Generate</string>
     <string name="DeleteAll">Delete all</string>
+    <string name="Icon">Icon</string>
+    <string name="Progress">Progress</string>
+    <string name="Lorem">Lorem Ipsum Dolores</string>
 </resources>
