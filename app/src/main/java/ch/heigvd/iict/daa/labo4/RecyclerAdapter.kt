@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ch.heigvd.iict.daa.labo4.models.State
 import ch.heigvd.iict.daa.labo4.models.Note
@@ -16,8 +17,10 @@ class MyRecyclerAdapter(_items: List<Note> = listOf()) :
     RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder>() {
     var items = listOf<Note>()
         set(value) {
+            val diffCallback = NotesDiffCallback(items, value)
+            val diffItems = DiffUtil.calculateDiff(diffCallback)
             field = value
-            notifyDataSetChanged() //à éviter, on préférera utiliser DiffUtil pour propager les modifications effectives uniquement (cf. slides suivants)
+            diffItems.dispatchUpdatesTo(this)
         }
 
     init {
@@ -27,7 +30,7 @@ class MyRecyclerAdapter(_items: List<Note> = listOf()) :
     override fun getItemCount() = items.size
 
     override fun getItemViewType(position: Int): Int {
-        //TODO
+        //TODO if needed
         return 0
     }
 
@@ -50,11 +53,11 @@ class MyRecyclerAdapter(_items: List<Note> = listOf()) :
         fun bind(note: Note) {
             icon?.setImageResource(
                 when (note.type) {
+                    Type.NONE -> R.drawable.note
                     Type.SHOPPING -> R.drawable.shopping
                     Type.TODO -> R.drawable.todo
                     Type.WORK -> R.drawable.work
                     Type.FAMILY -> R.drawable.family
-                    Type.NONE -> TODO()
                 }
             )
 
@@ -63,8 +66,13 @@ class MyRecyclerAdapter(_items: List<Note> = listOf()) :
                 progressIcon?.visibility = View.INVISIBLE
                 progressText?.visibility = View.INVISIBLE
             } else {
-                val dateFormat = java.text.DateFormat.getDateInstance(java.text.DateFormat.LONG, Locale.getDefault())
-                //TODO make the progressIcon red if past a due date
+                val dateFormat = java.text.DateFormat.getDateInstance(
+                    java.text.DateFormat.LONG,
+                    Locale.getDefault()
+                )
+                //TODO write the difference in months between creation date and now
+                //TODO define how long is late
+                //TODO make the progressIcon red if late
                 progressText?.text = dateFormat.format(note.creationDate.time)
             }
 

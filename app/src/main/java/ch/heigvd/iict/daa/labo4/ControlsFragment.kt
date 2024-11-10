@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 
 class ControlsFragment : Fragment() {
+    //private val notesViewModel: NotesViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,14 +27,21 @@ class ControlsFragment : Fragment() {
         val generateBtn = view.findViewById<Button>(R.id.btnGenerate)
         val deleteBtn = view.findViewById<Button>(R.id.btnDelete)
 
-        //TODO link through livedata
+        //TODO fix livedata linkage
+        /*
+        notesViewModel.countNotes.observe(viewLifecycleOwner) {
+            counterNotes.text = it.toString()
+        }
+        */
 
         generateBtn.setOnClickListener {
-            //TODO
+            //notesViewModel.generateANote()
+            print("generate")
         }
 
         deleteBtn.setOnClickListener {
-            //TODO
+            //notesViewModel.deleteAllNote()
+            print("delete all")
         }
     }
 }

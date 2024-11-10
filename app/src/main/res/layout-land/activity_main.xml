@@ -6,23 +6,23 @@
     android:orientation="horizontal">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/colorFragmentContainer"
+        android:id="@+id/notesFragmentContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/counterFragmentContainer"
+        app:layout_constraintEnd_toStartOf="@id/controlsFragmentContainer"
         app:layout_constraintWidth_percent="0.67"
         android:name="ch.heigvd.iict.daa.labo4.NotesFragment"/>
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/counterFragmentContainer"
+        android:id="@+id/controlsFragmentContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/colorFragmentContainer"
+        app:layout_constraintStart_toEndOf="@id/notesFragmentContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.33"
         android:name="ch.heigvd.iict.daa.labo4.ControlsFragment"/>
