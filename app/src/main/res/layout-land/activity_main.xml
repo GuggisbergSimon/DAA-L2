@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/controlsFragmentContainer"
         app:layout_constraintWidth_percent="0.67"
-        android:name="ch.heigvd.iict.daa.labo4.NotesFragment"/>
+        android:name="ch.heigvd.iict.daa.labo4.fragments.NotesFragment"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/controlsFragmentContainer"
@@ -25,6 +25,6 @@
         app:layout_constraintStart_toEndOf="@id/notesFragmentContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.33"
-        android:name="ch.heigvd.iict.daa.labo4.ControlsFragment"/>
+        android:name="ch.heigvd.iict.daa.labo4.fragments.ControlsFragment"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

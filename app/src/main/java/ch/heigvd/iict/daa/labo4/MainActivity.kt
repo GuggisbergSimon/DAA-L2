@@ -7,7 +7,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
-    private val notesViewModel: NotesViewModel by viewModels()
+    private val notesViewModel: NotesViewModel by viewModels {
+        NotesViewModelFactory((application as MyApp).repository)
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)

@@ -1,4 +1,4 @@
-package ch.heigvd.iict.daa.labo4
+package ch.heigvd.iict.daa.labo4.recyclerView
 
 import androidx.recyclerview.widget.DiffUtil
 import ch.heigvd.iict.daa.labo4.models.NoteAndSchedule

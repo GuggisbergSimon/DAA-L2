@@ -1,21 +1,28 @@
 package ch.heigvd.iict.daa.labo4
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import ch.heigvd.iict.daa.labo4.models.Note
-import ch.heigvd.iict.daa.labo4.models.NoteAndSchedule
 
 class NotesViewModel(private val repository: DataRepository) : ViewModel() {
     val allNotes = repository.allNotes
     val countNotes = repository.countNotes
 
     fun generateANote() {
-        val ns = NoteAndSchedule(Note.generateRandomNote(), Note.generateRandomSchedule())
-        repository.allNotes.postValue(allNotes.value!! + listOf(ns))
-        repository.countNotes.postValue(repository.countNotes.value!! + 1)
+        val n = Note.generateRandomNote()
+        repository.insertNote(n)
     }
 
     fun deleteAllNote() {
-        allNotes.value = listOf()
-        countNotes.value = 0
+        repository.deleteAll()
+    }
+}
+
+class NotesViewModelFactory(private val repository: DataRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if(modelClass.isAssignableFrom(NotesViewModel::class.java)) {
+            return NotesViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

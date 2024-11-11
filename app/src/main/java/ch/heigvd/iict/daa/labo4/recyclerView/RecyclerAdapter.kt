@@ -1,4 +1,4 @@
-package ch.heigvd.iict.daa.labo4
+package ch.heigvd.iict.daa.labo4.recyclerView
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +8,11 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import ch.heigvd.iict.daa.labo4.R
 import ch.heigvd.iict.daa.labo4.models.State
 import ch.heigvd.iict.daa.labo4.models.NoteAndSchedule
 import ch.heigvd.iict.daa.labo4.models.Type
 import java.util.Calendar
-import java.util.Locale
 
 class RecyclerAdapter(_items: List<NoteAndSchedule> = listOf()) :
     RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
@@ -86,7 +86,8 @@ class RecyclerAdapter(_items: List<NoteAndSchedule> = listOf()) :
                     progressText?.text = itemView.context.getString(R.string.Late)
                     progressIcon?.setColorFilter(ContextCompat.getColor(itemView.context, R.color.red))
                 } else {
-                    progressText?.text = String.format("$monthsDifference " + itemView.context.getString(R.string.Months))
+                    progressText?.text = String.format("$monthsDifference " + itemView.context.getString(
+                        R.string.Months))
                 }
             }
 

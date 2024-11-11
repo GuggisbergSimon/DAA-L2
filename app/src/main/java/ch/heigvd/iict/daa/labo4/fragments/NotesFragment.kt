@@ -1,4 +1,4 @@
-package ch.heigvd.iict.daa.labo4
+package ch.heigvd.iict.daa.labo4.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ch.heigvd.iict.daa.labo4.R
+import ch.heigvd.iict.daa.labo4.recyclerView.RecyclerAdapter
 import ch.heigvd.iict.daa.labo4.models.Note
 import ch.heigvd.iict.daa.labo4.models.NoteAndSchedule
 

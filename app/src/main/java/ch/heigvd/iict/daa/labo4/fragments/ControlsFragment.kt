@@ -1,4 +1,4 @@
-package ch.heigvd.iict.daa.labo4
+package ch.heigvd.iict.daa.labo4.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import ch.heigvd.iict.daa.labo4.MyApp
+import ch.heigvd.iict.daa.labo4.NotesViewModel
+import ch.heigvd.iict.daa.labo4.NotesViewModelFactory
+import ch.heigvd.iict.daa.labo4.R
 
 class ControlsFragment : Fragment() {
-    //private val notesViewModel: NotesViewModel by activityViewModels()
+    private val notesViewModel: NotesViewModel by viewModels {
+        NotesViewModelFactory((requireActivity().application as MyApp).repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,20 +34,16 @@ class ControlsFragment : Fragment() {
         val deleteBtn = view.findViewById<Button>(R.id.btnDelete)
 
         //TODO fix livedata linkage
-        /*
         notesViewModel.countNotes.observe(viewLifecycleOwner) {
             counterNotes.text = it.toString()
         }
-        */
 
         generateBtn.setOnClickListener {
-            //notesViewModel.generateANote()
-            print("generate")
+            notesViewModel.generateANote()
         }
 
         deleteBtn.setOnClickListener {
-            //notesViewModel.deleteAllNote()
-            print("delete all")
+            notesViewModel.deleteAllNote()
         }
     }
 }
