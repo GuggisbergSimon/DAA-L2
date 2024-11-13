@@ -5,7 +5,7 @@
   flipped: true,
   margin: 0.1cm,
 )
-#set text(font: "Arial", size: 8pt)
+#set text(font: "Arial", size: 7.6pt)
 
 #show: cram-snap.with(
   title: [DAA - Furrer - Guggisberg - Troeltsch],
@@ -82,22 +82,20 @@
   [Intents],[Lance une activité sur la stack avec paramètres éventuels],
   [Intents Explicites - activité précise],[Intents Implicites - appel générique via un lien/type intent],
   [Contracts],[résultat d'une activité (moderne, non déprécié)],
-  [*Fragment*],[],
-  [],[],
-  [],[],
-  [],[],
-  [],[],
-  [],[],
-  [],[],
-  [],[],
-  [],[],
-  [],[],
-  [],[],
-  [],[],
-  [],[],
-  [],[],
-  [],[],
-  [],[],
+  [*Fragment*],[plusieurs par Activity. Gérés par Fragment Manager],
+  [*Service*],[Réaliser longues opérations en arrière-plan],
+  [Foreground - par intent ou méthode],[notification visible: Lecteur Audio, Téléchargement,...],
+  [Background - par intent ou méthode],[sans interface utilisateur, limité dans le temps: sync. serveur],
+  [Bounded - par méthode, bind],[lié composant d'une app, détruit lorsque plus aucun n'est bind.],
+  [*Broadcast Receivers*],[publish-subscribe, via manifest, runtime (moins de limitations)],
+  [*Content Providers*],[accéder DB, Uri unique par donnée, CRUD],
+  [FileProvider - sous classe],[partage sécurisé de fichiers entre apps à private storage],
+  [*Permissions* - Bonnes pratiques],[Contrôle, Transparence, Minimisation],
+  [Installation],[listées dans manifest, automatiquement accordées],
+  [Exécution],[permissions dangereuses, listées dans manifest, pop up],
+  [Spéciales],[réservées à OS ou constructeur téléphone],
+  image("img/Screenshot 2024-11-13 225106.png"),image("img/Screenshot 2024-11-13 222058.png", width:6cm),
+  image("img/Screenshot 2024-11-13 232329.png", width: 3.125cm),image("img/Screenshot 2024-11-13 232347.png", width: 3cm),
 )
 
 #table(
