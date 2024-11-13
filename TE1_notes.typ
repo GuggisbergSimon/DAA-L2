@@ -75,6 +75,29 @@
 
 #table(
   theader[Layout],
+  [*Activity* - Stack],[Doivent être déclarées dans le manifest],
+  [Cycle de vie - Inact->Stopped->Paused->Active->Paused->Stopped->Inact],[Active:foreground, can not be killed Paused:visible, no focus Stopped:invisible Inactive:temporary when created/killed],
+  [État activité],[activités sur stack peuvent être détruites. changement de config va recréer activité active],
+  [Sauvegarde-Restoration],[onSaveInstanceState -> Bundle -> onCreate/onRestoreInstanceState],
+  [Intents],[Lance une activité sur la stack avec paramètres éventuels],
+  [Intents Explicites - activité précise],[Intents Implicites - appel générique via un lien/type intent],
+  [Contracts],[résultat d'une activité (moderne, non déprécié)],
+  [*Fragment*],[],
+  [],[],
+  [],[],
+  [],[],
+  [],[],
+  [],[],
+  [],[],
+  [],[],
+  [],[],
+  [],[],
+  [],[],
+  [],[],
+  [],[],
+  [],[],
+  [],[],
+  [],[],
 )
 
 #table(
