@@ -104,12 +104,20 @@
 
 #table(
   theader[LiveData et MVVM],
+  [*LiveData* - librairie Android Jetpack],[observable, lifecycle aware (ne va notifier que si actif/visible)],
+  [avantages:],[update visuelle auto, pas de memory leaks],
+  [souvent créés dans un ViewModel],[remplace sauvegarde état, partage données entre activité/fragment],
+  [MutableLiveData],[LiveData ne sont pas modifiables],
+  [MVC - Responsabilités Activités/Fragments],[gestion vues (init, update), réaction user input, API system calls, ...],
+  [MVC - Problèmes Activités/Fragments],[destruction/restoration à tout moment, perte d'appels asynchrones],
+  [*MVVM*],[Model (Room) `<->` ViewModel `<->` View (UI controller)],
+  [*ViewModel*],[si associé à une activité survit aux recréations, référencé Activités/Fragments, stockage données court terme/sans persistance],
+  [particularités],[n'est instancié que si utilisé, si utilisé lorsqu'activité inactive->échec],
+  [bonnes pratiques],[ne pas avoir de réf vers Vue/Activité/Fragment, plusieurs par Activité, exposer LiveData uniquement et pas MutableLiveData (mais possible de cast en MutableLiveData...)],
 )
 
-#colbreak()
-
 #table(
-  theader[Persistance des données - Résumé],
+  theader[Persistance des données],
   [dossier _assets_],[disponible lecture seule],
   [*Fichiers privés - interne*: chiffré],[géré par application - mise en cache: sans garantie],
   [*Fichiers privés - externe*: chemin absolu peut changer],[géré par application - mise en cache],
