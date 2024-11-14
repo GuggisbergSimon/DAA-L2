@@ -74,7 +74,7 @@
 )
 
 #table(
-  theader[Layout],
+  theader[Activités, Fragments, Services],
   [*Activity* - Stack],[Doivent être déclarées dans le manifest],
   [Cycle de vie - Inact->Stopped->Paused->Active->Paused->Stopped->Inact],[Active:foreground, can not be killed Paused:visible, no focus Stopped:invisible Inactive:temporary when created/killed],
   [État activité],[activités sur stack peuvent être détruites. changement de config va recréer activité active],
@@ -99,10 +99,6 @@
 )
 
 #table(
-  theader[Activités, Fragments, Services],
-)
-
-#table(
   theader[Interface graphique],
 )
 
@@ -110,6 +106,38 @@
   theader[LiveData et MVVM],
 )
 
+#colbreak()
+
 #table(
-  theader[Persistance des données],
+  theader[Persistance des données - Résumé],
+  [dossier _assets_],[disponible lecture seule],
+  [*Fichiers privés - interne*: chiffré],[géré par application - mise en cache: sans garantie],
+  [*Fichiers privés - externe*: chemin absolu peut changer],[géré par application - mise en cache],
+  [*Fichiers média partagés*],[API _Mediastore_ requêtes et résultats en Uri],
+  [*SharedPreferences*],[key-value, géré par SDK, stockés dans XML privé interne],
+  [*Base de données*],[Données stockées dans un fichier, SQLite],
+  [*Android Room*],[ORM pour SQLite],
+  [KSP - Kotlin Symbol Processing API],[génération de code par annotation],
+  [Repository],[Single source of truth, point d'accès aux données],
+  [Entités],[data class pour stocker objets, annotations],
+  [DAO],[Data Access Object, interfaces pour accéder à la DB, requêtes, code généré automatiquement],
+  [Database],[Définition DB, mise en relation composants, singleton],
+  [Converters],[convertit types complexes afin de les stocker, par ex date],
+  [Requêtes sur LiveData],[Exécuter chaque fois que table est modifiée -> _distinctUntilChanged_],
+  [Requêtes sur toutes les données],[Charger en mémoire -> _Flow_ ou pagination],
+  [non chiffrement des données],[DB: Android 10 pour stockage interne. applicatif: SQLite+SQLCipher],
+  [Architecture],image("img/Screenshot 2024-11-14 152438.png"),
+)
+
+#set table(columns: (2fr, 2fr, 1fr, 1fr))
+
+#table(
+  theader[Persistance des données - Résumé],
+  [Type],[Permissions],[Accès autres applications],[Suppression lors désinstallation],
+  [Fichiers privés: Internes],[aucune], [non], [oui],
+  [Fichiers privés: Externes],[aucune (19+)],[possible],[oui],
+  [Média - _Mediastore API_],[READ_EXTERNAL_STORAGE],[oui],[non],
+  [Autres fichiers partagés (téléchargements)],[aucune via _Storage Access Framework_],[oui],[non],
+  [Préférences],[aucune],[non],[oui],
+  [Base de données locale],[aucune],[non],[non],
 )
