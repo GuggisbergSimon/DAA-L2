@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import ch.heigvd.iict.daa.labo4.MyApp
 import ch.heigvd.iict.daa.labo4.NotesViewModel
 import ch.heigvd.iict.daa.labo4.NotesViewModelFactory
 import ch.heigvd.iict.daa.labo4.R
 
 class ControlsFragment : Fragment() {
-    private val notesViewModel: NotesViewModel by viewModels {
+    private val notesViewModel: NotesViewModel by activityViewModels {
         NotesViewModelFactory((requireActivity().application as MyApp).repository)
     }
 
@@ -33,7 +33,6 @@ class ControlsFragment : Fragment() {
         val generateBtn = view.findViewById<Button>(R.id.btnGenerate)
         val deleteBtn = view.findViewById<Button>(R.id.btnDelete)
 
-        //TODO fix livedata linkage
         notesViewModel.countNotes.observe(viewLifecycleOwner) {
             counterNotes.text = it.toString()
         }

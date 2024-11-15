@@ -8,7 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
     private val notesViewModel: NotesViewModel by viewModels {
-        NotesViewModelFactory((application as MyApp).repository)
+        var app = application as MyApp
+        NotesViewModelFactory(app.repository)
     }
 
 
@@ -20,11 +21,14 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
 
-            //TODO implement sorting
-            R.id.main_menu_sortDate -> { /* do something */ true
+            R.id.main_menu_sortDate -> {
+                notesViewModel.sortByDate()
+                true
             }
 
-            R.id.main_menu_sortETA -> { /* do something */ true
+            R.id.main_menu_sortETA -> {
+                notesViewModel.sortByETA()
+                true
             }
 
             R.id.main_menu_generate -> {
