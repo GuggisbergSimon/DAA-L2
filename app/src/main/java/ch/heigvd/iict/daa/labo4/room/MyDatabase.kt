@@ -34,7 +34,7 @@ abstract class MyDatabase : RoomDatabase() {
         }
     }
 
-    private class MyDatabaseCallBack : RoomDatabase.Callback() {
+    private class MyDatabaseCallBack : Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
             INSTANCE?.let { database ->
