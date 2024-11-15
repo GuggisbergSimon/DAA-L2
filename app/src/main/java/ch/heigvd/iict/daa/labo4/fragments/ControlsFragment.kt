@@ -12,6 +12,7 @@ import ch.heigvd.iict.daa.labo4.MyApp
 import ch.heigvd.iict.daa.labo4.NotesViewModel
 import ch.heigvd.iict.daa.labo4.NotesViewModelFactory
 import ch.heigvd.iict.daa.labo4.R
+import java.util.Locale
 
 class ControlsFragment : Fragment() {
     private val notesViewModel: NotesViewModel by activityViewModels {
@@ -34,7 +35,7 @@ class ControlsFragment : Fragment() {
         val deleteBtn = view.findViewById<Button>(R.id.btnDelete)
 
         notesViewModel.countNotes.observe(viewLifecycleOwner) {
-            counterNotes.text = it.toString()
+            counterNotes.text = String.format(Locale.getDefault(), "%d", it)
         }
 
         generateBtn.setOnClickListener {

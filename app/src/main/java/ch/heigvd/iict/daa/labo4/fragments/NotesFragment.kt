@@ -37,6 +37,6 @@ class NotesFragment : Fragment() {
         val adapter = RecyclerAdapter()
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this.context)
-        adapter.items = notesViewModel.getNotes().value ?: emptyList()
+        adapter.items = notesViewModel.allNotes.value ?: emptyList()
     }
 }
