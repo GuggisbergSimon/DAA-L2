@@ -52,7 +52,7 @@
   [*Manifest*],[décrit informations essentielles pour build, OS, et store],
   [Doit contenir],[Composants d'app(Activités, Services, Broadcast receivers, Content providers), Permissions, Fonctionnalités (hard/software)],
   [*Ressources*],[différentes ressources et classe _R_],
-  [Contextualisation - ⚠ Lire doc pour ordre],[Plusieurs ressources pour différents contextes/configurations : _values-fr_ _sw600dp_ _night_ _land_ densité écran:_hdpi_ taille écran:_normal_],
+  [Contextualisation - ⚠ Lire doc pour ordre précis],[Plusieurs ressources pour différents contextes/configurations. chargées automatiquement lors exécution la mieux adaptée. ex : _values-fr_ _sw600dp_ _night_ _land_ densité écran:_hdpi_ taille écran:_normal_],
   [*Valeurs* - string.xml],[peut être regroupées en tableau],
   [Placeholders],[`<string name="welcome">Hello, %1$s!</string>`],
   [Plurals - `zero one two few many`],[`<plurals name="test">
@@ -62,21 +62,24 @@
   [*Dimensions* - dimension.xml],[dp:density independent pixel, sp:scale independent pixel],
   [*Couleurs* - colors.xml],[-> themes.xml],
   [*Drawables*],[],
-  [Bitmap - png, webp, jpeg, gif],[Plusieurs résolutions pour chaque type d'écran],
+  [Bitmap - png, webp, jpeg, gif],[Plusieurs résolutions pour chaque type d'écran. résolutions différentes via contexte de densité.],
   [Vector - xml],[outil pour convertir depuis svg ou psd],
   [Nine-Patch - \*.9.[png]],[Redimensionnement contrôlé],
   [State List],[Drawable matchant différents states de la vue],
   [Level List],[Drawable matchant une valeur numérique],
   [*Layouts* - LinearLayout - RelativeLayout - ConstraintLayout - ScrollView],[ possible de les imbriquer mais moins bonnes performances. ScrollView est vertical (mais HorizontalScrollView existe)],
-  [*classe R*],[regroupe les ids uniques des ressources. Accessible code ou ressources, autogénérée dans dossier _gen_. R.Layout.Id],
+  [*classe R*],[regroupe les ids uniques des ressources. Accessible code ou ressources, autogénérée lors du build dans dossier _gen_ à la racine du package. setContentView(R.Layout.activity_main)],
   [*Build* - Gradle],[build.gradle app et projet],
   [Dépendances - Maven],[via _build.gradle.kts_ ou _libs.versions.toml_ (mieux)],
 )
+
+#colbreak()
 
 #table(
   theader[Activités, Fragments, Services],
   [*Activity* - Stack],[Doivent être déclarées dans le manifest],
   [Cycle de vie - Inact->Stopped->Paused->Active->Paused->Stopped->Inact],[Active:foreground, can not be killed Paused:visible, no focus Stopped:invisible Inactive:temporary when created/killed],
+  [*viewBinding*],[option buildFeatures dans build.gradle app, automatise linkage des vues, génère une classe pour chaque layout],
   [*Cycles de vie*],[application réagit aux changement d'états du lifecycle via méthodes de callback (onCreate, onStart, ...)],
   [Initialisation],[initialiser vue via viewBinding ou classe R et findViewById],
   [Nouvelle activité],[nouvelle lancée via Intent, précédente dans la pile en _Stopped_],
@@ -99,12 +102,20 @@
   [Installation],[listées dans manifest, automatiquement accordées],
   [Exécution],[permissions dangereuses, listées dans manifest, pop up],
   [Spéciales],[réservées à OS ou constructeur téléphone],
-  image("img/Screenshot 2024-11-13 225106.png"),image("img/Screenshot 2024-11-13 222058.png", width:6cm),
-  image("img/Screenshot 2024-11-13 232329.png", width: 3.125cm),image("img/Screenshot 2024-11-13 232347.png", width: 3cm),
 )
 
 #colbreak()
 
+#set table(columns: (1fr, 1fr))
+#table(
+  theader[Diagrams],
+  image("img/Screenshot 2024-11-13 225106.png", height: 9cm),image("img/Screenshot 2024-11-13 222058.png", height: 9cm),
+  image("img/Screenshot 2024-11-13 232329.png", height: 9cm),image("img/Screenshot 2024-11-13 232347.png", height: 9cm),
+)
+
+#colbreak()
+
+#set table(columns: (1fr, 2fr))
 #table(
   theader[Interface graphique],
   [*UI-Thread* - ex. fréquence 16ms],[affichage graphique, ne doit pas être surchargé car usage fréquent],
