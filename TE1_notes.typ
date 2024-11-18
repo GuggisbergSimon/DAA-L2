@@ -52,7 +52,7 @@
   [*Manifest*],[décrit informations essentielles pour build, OS, et store],
   [Doit contenir],[Composants d'app(Activités, Services, Broadcast receivers, Content providers), Permissions, Fonctionnalités (hard/software)],
   [*Ressources*],[différentes ressources et classe _R_],
-  [Contextualisation - ⚠ Lire doc pour ordre],[_fr_ _sw600dp_ _night_ _land_ densité écran:_hdpi_ taille écran:_normal_],
+  [Contextualisation - ⚠ Lire doc pour ordre],[Plusieurs ressources pour différents contextes/configurations : _values-fr_ _sw600dp_ _night_ _land_ densité écran:_hdpi_ taille écran:_normal_],
   [*Valeurs* - string.xml],[peut être regroupées en tableau],
   [Placeholders],[`<string name="welcome">Hello, %1$s!</string>`],
   [Plurals - `zero one two few many`],[`<plurals name="test">
@@ -68,7 +68,7 @@
   [State List],[Drawable matchant différents states de la vue],
   [Level List],[Drawable matchant une valeur numérique],
   [*Layouts* - LinearLayout - RelativeLayout - ConstraintLayout - ScrollView],[ possible de les imbriquer mais moins bonnes performances. ScrollView est vertical (mais HorizontalScrollView existe)],
-  [*classe R*],[regroupe les ids des ressources. Accessible code ou ressources],
+  [*classe R*],[regroupe les ids uniques des ressources. Accessible code ou ressources, autogénérée dans dossier _gen_. R.Layout.Id],
   [*Build* - Gradle],[build.gradle app et projet],
   [Dépendances - Maven],[via _build.gradle.kts_ ou _libs.versions.toml_ (mieux)],
 )
@@ -77,9 +77,14 @@
   theader[Activités, Fragments, Services],
   [*Activity* - Stack],[Doivent être déclarées dans le manifest],
   [Cycle de vie - Inact->Stopped->Paused->Active->Paused->Stopped->Inact],[Active:foreground, can not be killed Paused:visible, no focus Stopped:invisible Inactive:temporary when created/killed],
+  [*Cycles de vie*],[application réagit aux changement d'états du lifecycle via méthodes de callback (onCreate, onStart, ...)],
+  [Initialisation],[initialiser vue via viewBinding ou classe R et findViewById],
+  [Nouvelle activité],[nouvelle lancée via Intent, précédente dans la pile en _Stopped_],
+  [Navigation entre activités],[configurations système peuvent entrainer recréation activité, si celle-ci supprimée car plus de ressource entre temps également -> sauver état courant dans bundle],
+  [Terminer activité courante],[Back -> onPause -> onStop -> onDestroy -> finish],
   [État activité],[activités sur stack peuvent être détruites. changement de config va recréer activité active],
-  [Sauvegarde-Restoration],[onSaveInstanceState -> Bundle -> onCreate/onRestoreInstanceState],
-  [Intents],[Lance une activité sur la stack avec paramètres éventuels],
+  [*Sauvegarde-Restoration*],[onSaveInstanceState -> Bundle -> onCreate/onRestoreInstanceState],
+  [*Intents*],[Lance une activité sur la stack avec paramètres éventuels],
   [Intents Explicites - activité précise],[Intents Implicites - appel générique via un lien/type intent],
   [Contracts],[résultat d'une activité (moderne, non déprécié)],
   [*Fragment*],[plusieurs par Activity. Gérés par Fragment Manager],
@@ -97,6 +102,8 @@
   image("img/Screenshot 2024-11-13 225106.png"),image("img/Screenshot 2024-11-13 222058.png", width:6cm),
   image("img/Screenshot 2024-11-13 232329.png", width: 3.125cm),image("img/Screenshot 2024-11-13 232347.png", width: 3cm),
 )
+
+#colbreak()
 
 #table(
   theader[Interface graphique],
@@ -125,11 +132,14 @@
   [Expendable],[permet d'aggrandir la notification pour afficher plus de texte],
   [*ActionBar*],["menu", affiche par défaut titre app, peut accueillir actions, icones,...],
   [*ListView*],[affichage vertical défilant d'une collection d'éléments],
-  [*RecyclerView*],[\+ performant que ListView, + complexe, manque fonctionnalités],
+  [*RecyclerView*],[impose recyclage vues, objets différents types et layouts, animations intégrées ajout/update/delete éléments, scroll vertical/horizontal, DiffUtils, \+ performant que ListView, + complexe, manque fonctionnalités (OnItemClickListener)],
+  [DiffUtils],[ne rafraichit que les éléments modifiés],
   [*Autres widgets*],[],
   [_Floating Action Button_ - FAB],[bouton flottant au dessus de interface, en bas à droite,.],
   [_GestureDetector_],[détecte les actions utilisateurs habituelles avec plusieurs doigts],
 )
+
+#colbreak()
 
 #table(
   theader[LiveData et MVVM],
@@ -140,10 +150,12 @@
   [MVC - Responsabilités Activités/Fragments],[gestion vues (init, update), réaction user input, API system calls, ...],
   [MVC - Problèmes Activités/Fragments],[destruction/restoration à tout moment, perte d'appels asynchrones],
   [*MVVM*],[Model (Room) `<->` ViewModel `<->` View (UI controller)],
-  [*ViewModel*],[si associé à une activité survit aux recréations, référencé Activités/Fragments, stockage données court terme/sans persistance],
+  [*ViewModel*],[si associé à une activité survit aux recréations (rotation), référencé Activités/Fragments, stockage données court terme/sans persistance],
   [particularités],[n'est instancié que si utilisé, si utilisé lorsqu'activité inactive->échec],
   [bonnes pratiques],[ne pas avoir de réf vers Vue/Activité/Fragment, plusieurs par Activité, exposer LiveData uniquement et pas MutableLiveData (mais possible de cast en MutableLiveData...)],
 )
+
+#colbreak()
 
 #table(
   theader[Persistance des données],
