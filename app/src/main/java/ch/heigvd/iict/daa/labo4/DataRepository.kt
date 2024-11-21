@@ -9,15 +9,8 @@ import kotlin.concurrent.thread
 
 class DataRepository(private val dao: NoteDAO) {
     //TODO check notes change are updated properly
-    val allNotes = MutableLiveData<List<NoteAndSchedule>>(listOf())
-    val countNotes = MutableLiveData(0L)
-
-    init {
-        thread {
-            allNotes.postValue(dao.getAllNotes().value)
-            countNotes.postValue(dao.countNotes())
-        }
-    }
+    var allNotes = dao.getAllNotes()
+    var countNotes = dao.countNotes()
 
     fun insertNote(note : Note, schedule: Schedule?) {
         thread {
@@ -31,13 +24,13 @@ class DataRepository(private val dao: NoteDAO) {
 
     fun sortByDate() {
         thread {
-            allNotes.postValue(dao.getAllNotesByDate().value)
+            allNotes = dao.getAllNotesByDate()
         }
     }
 
     fun sortByETA() {
         thread {
-            allNotes.postValue(dao.getAllNotesByETA().value)
+            allNotes = dao.getAllNotesByETA()
         }
     }
 

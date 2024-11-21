@@ -39,10 +39,7 @@ abstract class MyDatabase : RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 thread {
-                    val isEmpty = database.noteDao().countNotes() == 0L
-                    if (isEmpty) {
-                        //TODO eventually populate DB
-                    }
+                    //TODO eventually populate DB
                 }
             }
         }

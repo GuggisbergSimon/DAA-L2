@@ -45,7 +45,7 @@ interface NoteDAO {
     fun getAllNotesByETA(): LiveData<List<NoteAndSchedule>>
 
     @Query ("SELECT COUNT(*) FROM Note")
-    fun countNotes(): Long
+    fun countNotes(): LiveData<Long>
 
     //TODO test
     @Query("DELETE FROM Note")
