@@ -57,6 +57,18 @@ class RecyclerAdapter(_items: List<NoteAndSchedule> = listOf()) :
         holder.bind(items[position])
     }
 
+    enum class SortBy {
+        DATE,
+        ETA
+    }
+
+    fun sortByDate(sortBy: SortBy) {
+        items = when (sortBy) {
+            SortBy.DATE -> items.sortedBy { it.note.creationDate.timeInMillis }
+            SortBy.ETA -> items.sortedBy { it.schedule?.date?.timeInMillis }
+        }
+    }
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val icon = view.findViewById<ImageView>(R.id.list_item_icon)
         private val title = view.findViewById<TextView>(R.id.list_item_title)
@@ -83,6 +95,7 @@ class RecyclerAdapter(_items: List<NoteAndSchedule> = listOf()) :
                 val today = Calendar.getInstance()
                 val monthsDifference = ns.schedule.date.get(Calendar.MONTH) - today.get(Calendar.MONTH)
                 if (monthsDifference < 0) {
+                    // TODO fix sometimes icon is red but text is "0 months" not "Late"
                     progressText?.text = itemView.context.getString(R.string.Late)
                     progressIcon?.setColorFilter(ContextCompat.getColor(itemView.context, R.color.red))
                 } else {

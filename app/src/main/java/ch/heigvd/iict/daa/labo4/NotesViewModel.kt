@@ -7,15 +7,7 @@ import ch.heigvd.iict.daa.labo4.models.Note
 class NotesViewModel(private val repository: DataRepository) : ViewModel() {
     val allNotes = repository.allNotes
     val countNotes = repository.countNotes
-
-    fun sortByDate() {
-        repository.sortByDate()
-    }
-
-    fun sortByETA() {
-        repository.sortByETA()
-    }
-
+    
     fun generateANote() {
         val n = Note.generateRandomNote()
         val s = Note.generateRandomSchedule()

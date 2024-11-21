@@ -1,8 +1,6 @@
 package ch.heigvd.iict.daa.labo4
 
-import androidx.lifecycle.MutableLiveData
 import ch.heigvd.iict.daa.labo4.models.Note
-import ch.heigvd.iict.daa.labo4.models.NoteAndSchedule
 import ch.heigvd.iict.daa.labo4.models.Schedule
 import ch.heigvd.iict.daa.labo4.room.NoteDAO
 import kotlin.concurrent.thread
@@ -19,18 +17,6 @@ class DataRepository(private val dao: NoteDAO) {
                 schedule.ownerId = pid
                 dao.insert(schedule)
             }
-        }
-    }
-
-    fun sortByDate() {
-        thread {
-            allNotes = dao.getAllNotesByDate()
-        }
-    }
-
-    fun sortByETA() {
-        thread {
-            allNotes = dao.getAllNotesByETA()
         }
     }
 
