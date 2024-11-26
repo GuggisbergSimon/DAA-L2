@@ -201,3 +201,23 @@
   [Préférences],[aucune],[non],[oui],
   [Base de données locale],[aucune],[non],[non],
 )
+
+#colbreak()
+#colbreak()
+#set table(columns: (1fr, 3fr))
+#table(
+  theader[Threads, coroutines],
+  [*Threads*],[],
+  [TODO],[],
+  [*Coroutines*],[],
+  [TODO],[],
+  [Dispatchers],[Main : UI Thread, unique thread, Default : CPU, nb de threads = nb de CPU, IO : méthodes bloquantes, nb de threads = dynamique, max 64],
+  [GlobalScope],[Scope application, au développeur de les stopper, déconseillé],
+  [LifeCycleScope],[associé à l'objet avec cycle de vie (Activity ou Fragment), automatiquement stoppés],
+  [ViewModelScope],[comme LifeCycleScope mais pour ViewModel],
+  [*WorkManager*],[Immediate, Long Running (+10min), Deferrable(programmed/periodic)],
+  [périodique],[Android Doze, App Standyby Buckets, App hibernation],
+  [Android Doze],[si verrouillé sans chargeur -> veille profonde interrompue par tâches lors d'une maintenance window],
+  [App Standyby Buckets],[classer apps selon utilisation : Active, Working set (~quotidienne), Frequent (~hebdomadaire), Rare (sporadique), Restricted (pas ouvert depuis +8 jours)],
+  [App hibernation],[],
+)
