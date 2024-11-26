@@ -35,19 +35,9 @@ interface NoteDAO {
     @Query("SELECT * FROM Note")
     fun getAllNotes(): LiveData<List<NoteAndSchedule>>
 
-    @Transaction
-    @Query("SELECT * FROM Note ORDER BY creationDate ASC")
-    fun getAllNotesByDate() : LiveData<List<NoteAndSchedule>>
-
-    //TODO test
-    @Transaction
-    @Query("SELECT * FROM Note INNER JOIN Schedule ON Note.noteId = Schedule.ownerId ORDER BY Schedule.date ASC")
-    fun getAllNotesByETA(): LiveData<List<NoteAndSchedule>>
-
     @Query ("SELECT COUNT(*) FROM Note")
     fun countNotes(): LiveData<Long>
 
-    //TODO test
     @Query("DELETE FROM Note")
     fun deleteAll()
 }

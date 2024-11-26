@@ -6,12 +6,14 @@
 
 En l'état la liste d'objets est triée dans la vue. Pour sauvegarder l'état de celle-ci même après la
 fermeture de l'app, il faudrait que cela se fasse soit au niveau de la base de donnée soit au niveau
-des préférences utilisateurs. 
+des préférences utilisateurs.
 
-En l'occurence, comme notre donnée a stocké (un type de tri) est très simple, il n'est pas nécessaire 
-de stocké cette information dans la base de donnée. Une simple utilisation de DataStore suffit.
+En l'occurence, comme notre donnée peut être stockée (un type de tri) est très simple, il n'est pas
+nécessaire de stocker cette information dans la base de donnée. Une simple utilisation de DataStore
+suffit.
 
 Classe utilissant le datastore:
+
 ```kotlin
 import android.content.Context
 import androidx.datastore.preferences.core.Preferences
@@ -25,7 +27,8 @@ private val Context.dataStore by preferencesDataStore(name = "user_preferences")
 class PreferencesManager(context: Context) {
 
     companion object {
-        private val SORT_OPTION_KEY = stringPreferencesKey("sort_option") // Clé pour l'option de tri
+        private val SORT_OPTION_KEY =
+            stringPreferencesKey("sort_option") // Clé pour l'option de tri
     }
 
     private val dataStore = context.dataStore
@@ -38,7 +41,7 @@ class PreferencesManager(context: Context) {
 
     // Fonction pour mettre à jour l'option de tri
     suspend fun setSortOption(option: String) {
-        dataStore.edit { 
+        dataStore.edit {
             preferences[SORT_OPTION_KEY] = option
         }
     }
@@ -46,40 +49,41 @@ class PreferencesManager(context: Context) {
 
 ```
 
-Il suffit ensuite d'ajouter ces logiques dans les classes de notes:
+Il suffit ensuite d'ajouter cette logique dans les classes de notes:
 
 ```kotlin
 class NotesViewModel(
-  private val repository: DataRepository,
-  private val preferencesManager: PreferencesManager
+    private val repository: DataRepository,
+    private val preferencesManager: PreferencesManager
 ) {
 
-  val allNotes = repository.allNotes
-  val countNotes = repository.countNotes
+    val allNotes = repository.allNotes
+    val countNotes = repository.countNotes
 
-  fun generateANote() {
-    val n = Note.generateRandomNote()
-    val s = Note.generateRandomSchedule()
-    repository.insertNote(n, s)
-  }
+    fun generateANote() {
+        val n = Note.generateRandomNote()
+        val s = Note.generateRandomSchedule()
+        repository.insertNote(n, s)
+    }
 
-  fun deleteAllNote() {
-    repository.deleteAll()
-  }
+    fun deleteAllNote() {
+        repository.deleteAll()
+    }
 
-  // Fonction pour récupérer l'option de tri
-  fun getSortOption(): String {
-    return preferencesManager.getSortOption()
-  }
+    // Fonction pour récupérer l'option de tri
+    fun getSortOption(): String {
+        return preferencesManager.getSortOption()
+    }
 
-  // Fonction pour mettre à jour l'option de tri
-  fun updateSortOption(option: String) {
-    preferencesManager.setSortOption(option)
-  }
+    // Fonction pour mettre à jour l'option de tri
+    fun updateSortOption(option: String) {
+        preferencesManager.setSortOption(option)
+    }
 }
 ```
-L'option de tri peut donc ensuite être modifier et appeler par l'UI comme n'importe quelle autre méthode de
-NotesViewModel
+
+L'option de tri peut donc ensuite être modifiée et appelée par l'UI comme n'importe quelle autre
+méthode de NotesViewModel.
 
 ## 6.2 L’accès à la liste des notes issues de la base de données Room se fait avec une LiveData. Est-ce que cette solution présente des limites ?
 
@@ -95,13 +99,13 @@ Oui.
   d'informations n'est pas nécessaire de mettre à jour tout le temps.
 
 Une solution a cette problèmatique est d'utiliser le "Flow", qui est entre autre prévu pour ça.
-Cet block Kotlin permet d'utiliser les concetps de coroutine pour réagir au événements et mettre a 
+Ce block Kotlin permet d'utiliser les concepts de coroutine pour réagir au événements et mettre à
 jour plus facilement l'UI par exemple. De plus, il se combine bien avec Android Room pour l'update
-dans la base de donnée, et pour réagir au modification de celle-ci.
+dans la base de donnée, et pour réagir aux modifications de celle-ci.
 
 ## 6.3 Les notes affichées dans la RecyclerView ne sont pas sélectionnables ni cliquables. Comment procéderiez-vous si vous souhaitiez proposer une interface permettant de sélectionner une note pour l’éditer ?
 
-Il faudrait passer par un ListView qui possèdes des callbacks tels que OnItemClickListener. Ensuite
+Il faudrait passer par un ListView qui possède des callbacks tels que OnItemClickListener. Ensuite
 cela commencerait un Intent vers une nouvelle vue/activités, par exemple, afin d'éditer celle-ci,
 qui impacterait la DB directement sans passer par un contrat pour une valeur de retour puisque la
 valeur est partagée grâce au ViewModel.

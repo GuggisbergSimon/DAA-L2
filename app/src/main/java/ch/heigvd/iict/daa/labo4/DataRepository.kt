@@ -6,7 +6,6 @@ import ch.heigvd.iict.daa.labo4.room.NoteDAO
 import kotlin.concurrent.thread
 
 class DataRepository(private val dao: NoteDAO) {
-    //TODO check notes change are updated properly
     var allNotes = dao.getAllNotes()
     var countNotes = dao.countNotes()
 

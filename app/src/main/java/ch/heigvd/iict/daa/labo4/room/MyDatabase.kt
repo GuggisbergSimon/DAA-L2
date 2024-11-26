@@ -39,7 +39,7 @@ abstract class MyDatabase : RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 thread {
-                    //TODO eventually populate DB
+                    // populating DB would be done here
                 }
             }
         }

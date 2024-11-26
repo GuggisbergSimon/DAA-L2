@@ -95,7 +95,6 @@ class RecyclerAdapter(_items: List<NoteAndSchedule> = listOf()) :
                 val today = Calendar.getInstance()
                 val monthsDifference = ns.schedule.date.get(Calendar.MONTH) - today.get(Calendar.MONTH)
                 if (monthsDifference < 0) {
-                    // TODO fix sometimes icon is red but text is "0 months" not "Late"
                     progressText?.text = itemView.context.getString(R.string.Late)
                     progressIcon?.setColorFilter(ContextCompat.getColor(itemView.context, R.color.red))
                 } else {
