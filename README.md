@@ -1,5 +1,10 @@
 # Labo4
 
+Auteurs :
+- Patrick Furrer
+- Simon Guggisberg
+- Jonas Troeltsch
+
 ## 6.1 Quelle est la meilleure approche pour sauver, même après la fermeture de l’app, le choix de l’option de tri de la liste des notes ?
 
 ### Vous justifierez votre réponse et l’illustrez en présentant le code mettant en œuvre votre approche.
