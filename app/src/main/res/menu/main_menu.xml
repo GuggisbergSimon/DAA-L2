@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/main_menu_refresh"
+        android:id="@+id/main_menu_clear_cache"
         android:icon="@drawable/refresh"
-        android:title="@string/refresh"
+        android:title="@string/clear_cache"
         app:showAsAction="ifRoom" />
 
 </menu>
