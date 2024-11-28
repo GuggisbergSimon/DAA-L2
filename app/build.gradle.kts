@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.heigvd.iict.daa.template"
+    namespace = "ch.heigvd.iict.daa.labo5"
     compileSdk = 34
 
     defaultConfig {
