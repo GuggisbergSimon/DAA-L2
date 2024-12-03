@@ -207,10 +207,12 @@
 #set table(columns: (1fr, 3fr))
 #table(
   theader[Threads, coroutines],
-  [*Threads*],[],
-  [TODO],[],
-  [*Coroutines*],[],
-  [TODO],[],
+  [*Threads*],[Main Thread (UI), Communications, DB, Périphériques],
+  [Handler],[Associé à un thread, permet de revenir dans le UI thread],
+  [Limites d'utilisation],[bien pour tâches courtes, ponctuelles. persistent si activité détruite. pas garbage collecté d'activity si réf de thread vers activity. concurrence entre threads. pas conscience cycle de vie Android.],
+  [*Coroutines*],[Appel séquentiel de différentes opérations.],
+  [Suspending function],[Profite du partage de thread.],
+  [Blocking function],[opérations IO, longs calculs, ...],
   [Dispatchers],[Main : UI Thread, unique thread, Default : CPU, nb de threads = nb de CPU, IO : méthodes bloquantes, nb de threads = dynamique, max 64],
   [GlobalScope],[Scope application, au développeur de les stopper, déconseillé],
   [LifeCycleScope],[associé à l'objet avec cycle de vie (Activity ou Fragment), automatiquement stoppés],
@@ -219,5 +221,20 @@
   [périodique],[Android Doze, App Standyby Buckets, App hibernation],
   [Android Doze],[si verrouillé sans chargeur -> veille profonde interrompue par tâches lors d'une maintenance window],
   [App Standyby Buckets],[classer apps selon utilisation : Active, Working set (~quotidienne), Frequent (~hebdomadaire), Rare (sporadique), Restricted (pas ouvert depuis +8 jours)],
-  [App hibernation],[],
+  [App hibernation],[si pas d'interactions pendant "longtemps" -> permissions runtime révoquées, plus de tâches programmées, plus de mesages push, dossiers cache vidés],
+)
+
+
+#table(
+  theader[Communications],
+  [Wi-fi],[connection ponctuelle],
+  [Réseaux mobiles],[2-5G,  accès continu dans un pays, intercellulaire],
+  [Accès Internet],[via permission dans manfest. possible de spécifier fichier de config pour options],
+  [*Services web*],[RESTful : GET POST PUT/PATCH DELETE],
+  [java.net.URL],[pour interroger API REST. GET par défaut.],
+  [gson],[librairie pour désérialiser json `GSON()fromJson<Object>(json, type)`],
+  [alternatives à java.net.URL],[OkHTTP, Volley, Retrofit],
+  [*Synchronisation des données*],[DB locale synchronisée avec serveur lorsque internet de retour],
+  [DB locale],[possède champ "status" : ok, new (depuis local), mod, del. possède id local et remote_id (null si new)],
+  [Limites],[Pas valable si d'autres mobiles utilisent la même DB. Repository de l'app = single source of truth],
 )
