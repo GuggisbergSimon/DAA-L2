@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "ch.heigvd.iict.daa.labo5"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "ch.heigvd.iict.daa.basictemplate"
@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.work)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

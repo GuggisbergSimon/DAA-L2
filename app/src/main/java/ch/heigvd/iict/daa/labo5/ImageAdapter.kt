@@ -17,18 +17,32 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.net.URL
-import kotlin.collections.remove
 import kotlin.collections.set
-import kotlin.text.get
+import android.os.SystemClock
 
 class ImageAdapter(private val items: List<Int>) :
     RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
     private val urlString = "https://daa.iict.ch/images/"
     private val jobs = mutableMapOf<Int, Job>()
+    private val imageCache = mutableMapOf<Int, Pair<Bitmap, Long>>()
+    private val cacheDuration = 5 * 60 * 1000 // 5 minutes in milliseconds
 
     class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.imageView)
         val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
+    }
+
+    companion object {
+        private lateinit var instance: ImageAdapter
+
+        fun setInstance(adapter: ImageAdapter) {
+            instance = adapter
+        }
+
+        fun clearCacheStatic() {
+            instance.clearCache()
+            Log.d(TAG, "Cache cleared from static method")
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -41,13 +55,32 @@ class ImageAdapter(private val items: List<Int>) :
         holder.progressBar.visibility = View.VISIBLE
         holder.imageView.visibility = View.GONE
 
-        val job = CoroutineScope(Dispatchers.Main).launch {
-            val url = URL("$urlString${item + 1}.jpg")
-            val bytes = downloadImage(url)
-            val bmp = decodeImage(bytes)
-            displayImage(holder, bmp)
+        val cachedImage = imageCache[item]
+        if (cachedImage != null && SystemClock.elapsedRealtime() - cachedImage.second < cacheDuration) {
+            Log.d(TAG, "Using cached image for item $item")
+            val job = CoroutineScope(Dispatchers.Main).launch {
+                // Use cached image
+                holder.progressBar.visibility = View.GONE
+                holder.imageView.visibility = View.VISIBLE
+                holder.imageView.setImageBitmap(cachedImage.first)
+
+                displayImage(holder, cachedImage.first)
+            }
+            jobs[position] = job
+
+        } else {
+            // Download image
+            val job = CoroutineScope(Dispatchers.Main).launch {
+                val url = URL("$urlString${item + 1}.jpg")
+                val bytes = downloadImage(url)
+                val bmp = decodeImage(bytes)
+                if (bmp != null) {
+                    imageCache[item] = Pair(bmp, SystemClock.elapsedRealtime())
+                }
+                displayImage(holder, bmp)
+            }
+            jobs[position] = job
         }
-        jobs[position] = job
     }
 
     override fun onViewRecycled(holder: ImageViewHolder) {
@@ -88,12 +121,8 @@ class ImageAdapter(private val items: List<Int>) :
     }
 
     fun clearCache() {
-        //TODO clear all saved images, restoring to progress bar
-        items.forEachIndexed { index, _ ->
-            jobs[index]?.cancel()
-            jobs.remove(index)
-            notifyItemChanged(index)
-        }
+        imageCache.clear()
+        Log.d(TAG, "Cache cleared")
     }
 
     fun clearJobs() {
