@@ -36,7 +36,7 @@ class ImageAdapter(private val items: List<Int>) :
         }
 
         override fun onClick(v: View?) {
-            println("Item clicked at position $adapterPosition")
+            Log.d(TAG, "Item clicked at position $adapterPosition")
         }
     }
 
@@ -64,21 +64,17 @@ class ImageAdapter(private val items: List<Int>) :
         holder.imageView.visibility = View.GONE
 
         val cachedImage = imageCache[item]
+        val job : Job
         if (cachedImage != null && SystemClock.elapsedRealtime() - cachedImage.second < cacheDuration) {
             Log.d(TAG, "Using cached image for item $item")
-            val job = CoroutineScope(Dispatchers.Main).launch {
+            job = CoroutineScope(Dispatchers.Main).launch {
                 // Use cached image
-                holder.progressBar.visibility = View.GONE
-                holder.imageView.visibility = View.VISIBLE
-                holder.imageView.setImageBitmap(cachedImage.first)
-
                 displayImage(holder, cachedImage.first)
             }
-            jobs[position] = job
-
         } else {
             // Download image
-            val job = CoroutineScope(Dispatchers.Main).launch {
+            Log.d(TAG, "Downloading image for item $item")
+            job = CoroutineScope(Dispatchers.Main).launch {
                 val url = URL("$urlString${item + 1}.jpg")
                 val bytes = downloadImage(url)
                 val bmp = decodeImage(bytes)
@@ -87,8 +83,9 @@ class ImageAdapter(private val items: List<Int>) :
                 }
                 displayImage(holder, bmp)
             }
-            jobs[position] = job
         }
+        jobs[position] = job
+
     }
 
     override fun onViewRecycled(holder: ImageViewHolder) {
