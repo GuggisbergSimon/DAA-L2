@@ -36,9 +36,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        imageAdapter.clearJobs()
+        if (isFinishing) {
+            imageAdapter.clearJobs()
+        }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
