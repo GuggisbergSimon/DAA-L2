@@ -27,9 +27,17 @@ class ImageAdapter(private val items: List<Int>) :
     private val imageCache = mutableMapOf<Int, Pair<Bitmap, Long>>()
     private val cacheDuration = 5 * 60 * 1000 // 5 minutes in milliseconds
 
-    class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         val imageView: ImageView = view.findViewById(R.id.imageView)
         val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
+
+        init {
+            view.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            println("Item clicked at position $adapterPosition")
+        }
     }
 
     companion object {
