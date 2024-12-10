@@ -254,4 +254,7 @@
   [`remember`],[stocke un unique objet d'état en mémoire (`Stable<T>` ou `MutableStable<T>`) créé et initialisé à première composition. toute modification va recomposer la vue. lorsque composition plus visible, objet est oublié.],
   [`rememberSaveable`],[automatise sauvegarde/restauration dans le `Bundle`],
   [State Hoisting],[on veut sortir l'état du composant -> value, onValueChange -> Single source of truth, encapsulation, interceptable, partage, découplage],
+  [*form factor*],[éléments racines qui occupent toute la place, composables traditionnels qui sont contenus dans racines],
+  [réutilisables],[fonctions non racines doivent pouvoir l'être. Doit se baser sur espace donné.],
+  [*Divers*],[pas recommandé de mélanger layout xml et compose, mais possible !],
 )
