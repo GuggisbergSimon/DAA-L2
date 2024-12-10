@@ -238,3 +238,20 @@
   [DB locale],[possède champ "status" : ok, new (depuis local), mod, del. possède id local et remote_id (null si new)],
   [Limites],[Pas valable si d'autres mobiles utilisent la même DB. Repository de l'app = single source of truth],
 )
+
+#table(
+  theader[Jetpack Compose],
+  [*Bases*],[Interface déclarative. Kotlin uniquement. simplifier/accélérer conception UI. généré par code.],
+  [ensemble de libraires],[Gradle propose Bill of Materials (BOM) qui gère quelle version est compatible avec quoi],
+  [How To],[`@Composable` : Bloc de construction UI -> `setContent{MyComposeApplicationTheme{Hello()}}`],
+  [Fonctions composable],[appelées 60/s, pas recomposer ce qui ne change pas, composition multi threading -> doit être idempotent, rapide, pas d'effet de bords],
+  [Layouts],[Column, Row (LinearLayout), Box (RelativeLayout)],
+  [Sucre],[si le dernier paramètre d'une fonction est une fonction, la fonction lambda peut être placé hors parenthèses. si pas d'autres, les parenthèses peuvent être omises],
+  [ConstraintLayout],[disponible via librairie, il faut référencer les fonctions dans celui ci via des identifiants],
+  [Scaffold],[permet de définir où les éléments de l'interface seront placés],
+  [Fonctions paresseuses],[ListView/RecyclerView -> Lazycolumn/LazyRow/LazyVerticalGrid. pas de recyclage, systématiquemen recomposées],
+  [*Gestion des états*],[cycle de vie : première composition, éventuelles recompositions, quitte la composition],
+  [`remember`],[stocke un unique objet d'état en mémoire (`Stable<T>` ou `MutableStable<T>`) créé et initialisé à première composition. toute modification va recomposer la vue. lorsque composition plus visible, objet est oublié.],
+  [`rememberSaveable`],[automatise sauvegarde/restauration dans le `Bundle`],
+  [State Hoisting],[on veut sortir l'état du composant -> value, onValueChange -> Single source of truth, encapsulation, interceptable, partage, découplage],
+)
