@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Labo6"
+rootProject.name = "and.rest"
 include(":app")
