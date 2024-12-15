@@ -4,9 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.fragment.app.commit
 import ch.heigvd.iict.and.rest.databinding.ActivityMainBinding
+import ch.heigvd.iict.and.rest.fragments.EditContactFragment
 import ch.heigvd.iict.and.rest.viewmodels.ContactsViewModel
 import ch.heigvd.iict.and.rest.viewmodels.ContactsViewModelFactory
 
@@ -23,8 +24,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.mainFabNew.setOnClickListener {
-            // FIXME - create a new contact
-            Toast.makeText(this, "TODO - Création d'un nouveau contact", Toast.LENGTH_SHORT).show()
+            contactsViewModel.selectContact(null)
+            supportFragmentManager.commit {
+                //TODO hide mainFabNew while in the new fragment, unhide it when back
+                replace(R.id.main_content_fragment, EditContactFragment())
+                addToBackStack(null)
+            }
         }
     }
 
