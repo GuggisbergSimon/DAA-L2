@@ -35,6 +35,7 @@ class ContactsViewModel(private val repository: ContactsRepository) : ViewModel(
     ) {
         if (_selectedContact.value != null) {
             // Update contact
+            //TODO update contact as this doesn't actually work
             val contact = _selectedContact.value?.copy(name = name)
                 ?: Contact(
                     name = name,

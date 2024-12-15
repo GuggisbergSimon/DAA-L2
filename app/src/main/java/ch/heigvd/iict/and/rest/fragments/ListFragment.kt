@@ -1,14 +1,15 @@
 package ch.heigvd.iict.and.rest.fragments
 
+import ch.heigvd.iict.and.rest.R
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ch.heigvd.iict.and.rest.ContactsApplication
+import ch.heigvd.iict.and.rest.MainActivity
 import ch.heigvd.iict.and.rest.databinding.FragmentListBinding
 import ch.heigvd.iict.and.rest.viewmodels.ContactsViewModel
 import ch.heigvd.iict.and.rest.viewmodels.ContactsViewModelFactory
@@ -35,8 +36,11 @@ class ListFragment : Fragment() {
                 val selectedContact = contactsViewModel.allContacts.value!!.find { it.id == id }
                 if(selectedContact != null) {
                     contactsViewModel.selectContact(selectedContact)
-                    //FIXME - user clicks on selectedContact, we want to edit it
-                    Toast.makeText(requireActivity(), "TODO - Edition de ${selectedContact.firstname} ${selectedContact.name}", Toast.LENGTH_SHORT).show()
+                    (requireActivity() as MainActivity).hideFab()
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_content_fragment, EditContactFragment())
+                        .addToBackStack(null)
+                        .commit()
                 }
             }
         }

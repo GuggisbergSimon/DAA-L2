@@ -12,7 +12,6 @@ import ch.heigvd.iict.and.rest.viewmodels.ContactsViewModel
 import ch.heigvd.iict.and.rest.viewmodels.ContactsViewModelFactory
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding : ActivityMainBinding
     private val contactsViewModel: ContactsViewModel by viewModels {
         ContactsViewModelFactory((application as ContactsApplication).repository)
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainFabNew.setOnClickListener {
             contactsViewModel.selectContact(null)
             supportFragmentManager.commit {
-                binding.mainFabNew.hide()
+                hideFab()
                 replace(R.id.main_content_fragment, EditContactFragment())
                 addToBackStack(null)
             }
@@ -37,6 +36,10 @@ class MainActivity : AppCompatActivity() {
                 binding.mainFabNew.show()
             }
         }
+    }
+
+    fun hideFab() {
+        binding.mainFabNew.hide()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
