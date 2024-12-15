@@ -89,22 +89,29 @@ class EditContactFragment : Fragment() {
             )
         }
 
-        // Handle buttons
-        cancelButton.setOnClickListener {
+        fun goBack() {
             contactsViewModel.selectContact(null)
             requireActivity().supportFragmentManager.popBackStack()
         }
 
+        // Handle buttons
+        cancelButton.setOnClickListener {
+            goBack()
+        }
+
         deleteButton.setOnClickListener {
             contactsViewModel.deleteContact()
+            goBack()
         }
 
         saveButton.setOnClickListener {
             saveContact()
+            goBack()
         }
 
         createButton.setOnClickListener {
             saveContact()
+            goBack()
         }
 
         // Setup fragment on contact selection

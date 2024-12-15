@@ -26,9 +26,15 @@ class MainActivity : AppCompatActivity() {
         binding.mainFabNew.setOnClickListener {
             contactsViewModel.selectContact(null)
             supportFragmentManager.commit {
-                //TODO hide mainFabNew while in the new fragment, unhide it when back
+                binding.mainFabNew.hide()
                 replace(R.id.main_content_fragment, EditContactFragment())
                 addToBackStack(null)
+            }
+        }
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                binding.mainFabNew.show()
             }
         }
     }
