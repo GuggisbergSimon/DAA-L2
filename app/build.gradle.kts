@@ -70,6 +70,9 @@ dependencies {
     // ViewModels + coroutines
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
+    // Gson for JSON parsing
+    implementation(libs.gson)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
