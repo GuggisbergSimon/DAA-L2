@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ch.heigvd.iict.and.rest.R
 import ch.heigvd.iict.and.rest.models.Contact
 import ch.heigvd.iict.and.rest.models.PhoneType
+import ch.heigvd.iict.and.rest.models.Status
 
 class ContactsAdapter(contacts : List<Contact>, private val clickListener: OnItemClickListener) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
 
@@ -51,8 +52,12 @@ class ContactsAdapter(contacts : List<Contact>, private val clickListener: OnIte
             name.text = "${contact.name} ${contact.firstname}"
             phonenumber.text = "${contact.phoneNumber}"
 
-            //FIXME color may depend on item sync status
-            val colRes = android.R.color.holo_green_dark
+            val colRes = when (contact.status) {
+                Status.OK -> android.R.color.holo_green_dark
+                Status.NEW -> android.R.color.holo_orange_light
+                Status.MODIFIED -> android.R.color.holo_orange_dark
+                Status.DELETED -> android.R.color.holo_red_dark
+            }
             image.setColorFilter(ContextCompat.getColor(image.context, colRes))
 
             when(contact.type) {

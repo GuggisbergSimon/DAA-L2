@@ -134,7 +134,7 @@ class EditContactFragment : Fragment() {
                     PhoneType.MOBILE -> phoneTypeGroup.check(R.id.edit_contact_phonetype_mobile)
                     PhoneType.OFFICE -> phoneTypeGroup.check(R.id.edit_contact_phonetype_office)
                     PhoneType.FAX -> phoneTypeGroup.check(R.id.edit_contact_phonetype_fax)
-                    null -> TODO()
+                    null -> TODO() //Probably just no sync
                 }
                 phoneNumberEditText.setText(it.phoneNumber)
                 deleteButton.visibility = View.VISIBLE
