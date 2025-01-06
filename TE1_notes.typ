@@ -202,9 +202,27 @@
   [Base de données locale],[aucune],[non],[non],
 )
 
-#colbreak()
-#colbreak()
 #set table(columns: (1fr, 3fr))
+
+#colbreak()
+
+#table(
+  theader[Tests],
+  [Catégories],[tests unitaires (fonctionnalités) - tests d'intégration (modules) - tests de bout en bout (workflow)],
+  [Particularités Android],[development et build par réalisés sur cible. SDK ne fournit pas implémentation de la plupart des classes/fonctions. bcp d'asynchronisme. interface graphique = animations, transitions],
+  [*Tests Unitaires*],[placés dans _app/src/test/java/_ utilisation de _JUnit_ _\@Test_ contexte : _\@get:Rule_],
+  [*Instrumentalisé Avec Room*],[_\@LargeTest_ _\@Before setUp()_ _\@After tearDown()_ _\@Test_],
+  [*Instrumentalisé Avec LiveData*],[_dao.count().waitingValue()_ pour attendre valeur. Limitation jusqu'à NBR_ITEM_TO_KEEP (100)],
+  [*Instrumentalisé Avec GUI*],[désactiver animations graphiques, ],
+  [Particularités],[si trop de travail Thread-UI -> ANR -> pas interface prévue. activité peut prendre + de temps à démarrer -> erreurs],
+  [*Instrumentalisé Avec Compose*],[Tester chaînes de caractères -> /!\ refactoring, possible d'ajouter identifiants aux fonctions composables],
+  [*CI/CD*],[SDK Android requis, tests instrumentalisés via émulateur, setup via cli puis adb],
+  [*Playstore - Monkey testing*],[testée automatiquement lors de publication. données aléatoires entrées. possible de renseigner un identifiant, sur plusieurs appareils. vérification accessibilité, failles de sécurité.],
+  [*Firebase - Robo Tests*],[Monkey testing basé sur Tests Robo du Test Lab de Firebase. API disponible, payant pour large échelle. Cartographie de l'app, captures d'écran, logs, profilage, etc...],
+)
+
+#colbreak()
+
 #table(
   theader[Threads, coroutines],
   [*Threads*],[Main Thread (UI), Communications, DB, Périphériques],
@@ -239,6 +257,9 @@
   [Limites],[Pas valable si d'autres mobiles utilisent la même DB. Repository de l'app = single source of truth],
 )
 
+#colbreak()
+
+
 #table(
   theader[Jetpack Compose],
   [*Bases*],[Interface déclarative. Kotlin uniquement. simplifier/accélérer conception UI. généré par code.],
@@ -257,19 +278,5 @@
   [*form factor*],[éléments racines qui occupent toute la place, composables traditionnels qui sont contenus dans racines],
   [réutilisables],[fonctions non racines doivent pouvoir l'être. Doit se baser sur espace donné.],
   [*Divers*],[pas recommandé de mélanger layout xml et compose, mais possible !],
-)
-
-#table(
-  theader[Tests],
-  [Catégories],[tests unitaires (fonctionnalités) - tests d'intégration (modules) - tests de bout en bout (workflow)],
-  [Particularités Android],[development et build par réalisés sur cible. SDK ne fournit pas implémentation de la plupart des classes/fonctions. bcp d'asynchronisme. interface graphique = animations, transitions],
-  [*Tests Unitaires*],[placés dans _app/src/test/java/_ utilisation de _JUnit_ _\@Test_ contexte : _\@get:Rule_],
-  [*Instrumentalisé Avec Room*],[_\@LargeTest_ _\@Before setUp()_ _\@After tearDown()_ _\@Test_],
-  [*Instrumentalisé Avec LiveData*],[_dao.count().waitingValue()_ pour attendre valeur. Limitation jusqu'à NBR_ITEM_TO_KEEP (100)],
-  [*Instrumentalisé Avec GUI*],[désactiver animations graphiques, ],
-  [Particularités],[si trop de travail Thread-UI -> ANR -> pas interface prévue. activité peut prendre + de temps à démarrer -> erreurs],
-  [*Instrumentalisé Avec Compose*],[Tester chaînes de caractères -> /!\ refactoring, possible d'ajouter identifiants aux fonctions composables],
-  [*CI/CD*],[SDK Android requis, tests instrumentalisés via émulateur, setup via cli puis adb],
-  [*Playstore - Monkey testing*],[testée automatiquement lors de publication. données aléatoires entrées. possible de renseigner un identifiant, sur plusieurs appareils. vérification accessibilité, failles de sécurité.],
-  [*Firebase - Robo Tests*],[Monkey testing basé sur Tests Robo du Test Lab de Firebase. API disponible, payant pour large échelle. Cartographie de l'app, captures d'écran, logs, profilage, etc...],
+  [Architecture],image("img/Screenshot 2025-01-06 180806.png"),
 )
