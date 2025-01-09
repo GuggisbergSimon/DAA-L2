@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onResume() {
         super.onResume()
-        adapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray)
+        adapter.enableForegroundDispatch(this, pendingIntent, null, null)
     }
 
     /**
