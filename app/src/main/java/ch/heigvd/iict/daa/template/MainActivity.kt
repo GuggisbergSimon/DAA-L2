@@ -9,52 +9,55 @@ import android.widget.TextView
 import android.content.Intent
 import android.content.IntentFilter
 import android.app.PendingIntent
+import android.nfc.tech.NfcF
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var nfcAdapter: NfcAdapter
-    private lateinit var textView: TextView
+    private lateinit var adapter: NfcAdapter
+    private lateinit var intentFiltersArray: Array<IntentFilter>
+    private lateinit var techListsArray: Array<Array<String>>
+    private lateinit var pendingIntent: PendingIntent
 
     /**
      * Create an instance of the NFC adapter class.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        // Get the default NFC adapter
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
-    }
-
-    /**
-     * An NFC intent filter is a way to specify which types of NFC tags your app can read.
-     */
-    private fun createNFCIntentFilter(): Array<IntentFilter> {
-        val intentFilter = IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED)
-        try {
-            intentFilter.addDataType("*/*")
-        } catch (e: IntentFilter.MalformedMimeTypeException) {
-            throw RuntimeException("Failed to add MIME type.", e)
+        val intent = Intent(this, javaClass).apply {
+            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
         }
-        return arrayOf(intentFilter)
+        pendingIntent = PendingIntent.getActivity(
+            this, 0, intent,
+            PendingIntent.FLAG_MUTABLE
+        )
+        val ndef = IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED).apply {
+            try {
+                addDataType("*/*")    /* Handles all MIME based dispatches.
+                                 You should specify only the ones that you need. */
+            } catch (e: IntentFilter.MalformedMimeTypeException) {
+                throw RuntimeException("fail", e)
+            }
+        }
+        intentFiltersArray = arrayOf(ndef)
+        techListsArray = arrayOf(arrayOf<String>(NfcF::class.java.name))
+        adapter = NfcAdapter.getDefaultAdapter(this)
+
+        setContentView(R.layout.activity_main)
     }
 
     /**
      * Handle NFC intent
      */
-    @OptIn(ExperimentalStdlibApi::class)
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        if (intent.action == NfcAdapter.ACTION_TAG_DISCOVERED) {
-            val tag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra(NfcAdapter.EXTRA_TAG, Tag::class.java)
-            } else {
-                intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
-            }
-            tag?.id?.let {
-                val tagValue = it.toHexString()
-                Toast.makeText(this, "NFC tag detected: $tagValue", Toast.LENGTH_SHORT).show()
-            }
+        val tagFromIntent: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
+        if (tagFromIntent != null) {
+            val tagId = tagFromIntent.id
+            val tagIdString = tagId.joinToString(separator = "") { byte -> String.format("%02X", byte) }
+            val textView = findViewById<TextView>(R.id.textView)
+            textView.text = tagIdString
+        } else {
+            Toast.makeText(this, "No tag found", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -63,17 +66,7 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onResume() {
         super.onResume()
-        val nfcAdapter = NfcAdapter.getDefaultAdapter(this)
-        val pendingIntent = PendingIntent.getActivity(
-            this, 0, Intent(this, javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
-            PendingIntent.FLAG_IMMUTABLE
-        )
-        val intentFilters = arrayOf<IntentFilter>(
-            IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED),
-            IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED),
-            IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED)
-        )
-        nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, null)
+        adapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray)
     }
 
     /**
@@ -81,25 +74,6 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onPause() {
         super.onPause()
-        val nfcAdapter = NfcAdapter.getDefaultAdapter(this)
-        nfcAdapter.disableForegroundDispatch(this)
-    }
-
-    /**
-     * Convert Tag ID to hexadecimal string
-     */
-    fun ByteArray.toHexString(): String {
-        val hexChars = "0123456789ABCDEF"
-        val result = StringBuilder(size * 2)
-
-        map { byte ->
-            val value = byte.toInt()
-            val hexChar1 = hexChars[value shr 4 and 0x0F]
-            val hexChar2 = hexChars[value and 0x0F]
-            result.append(hexChar1)
-            result.append(hexChar2)
-        }
-
-        return result.toString()
+        adapter.disableForegroundDispatch(this)
     }
 }
