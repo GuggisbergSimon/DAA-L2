@@ -2,14 +2,14 @@ package ch.heigvd.iict.daa.template
 
 import android.nfc.Tag
 import android.nfc.NfcAdapter
-import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import android.widget.TextView
 import android.content.Intent
 import android.content.IntentFilter
 import android.app.PendingIntent
-import android.nfc.tech.NfcF
+import android.nfc.tech.NfcA
+import android.nfc.tech.NfcV
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -38,8 +38,9 @@ class MainActivity : AppCompatActivity() {
                 throw RuntimeException("fail", e)
             }
         }
+
         intentFiltersArray = arrayOf(ndef)
-        techListsArray = arrayOf(arrayOf<String>(NfcF::class.java.name))
+        techListsArray = arrayOf(arrayOf(NfcA::class.java.name, NfcV::class.java.name))
         adapter = NfcAdapter.getDefaultAdapter(this)
 
         setContentView(R.layout.activity_main)
