@@ -174,7 +174,7 @@ class RemoteSyncManager {
                     }
 
                     // Check the response code
-                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                    if (responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
                         inputStream.bufferedReader(Charsets.UTF_8).use { reader ->
                             Log.d("MainActivity", reader.readText())
                         }

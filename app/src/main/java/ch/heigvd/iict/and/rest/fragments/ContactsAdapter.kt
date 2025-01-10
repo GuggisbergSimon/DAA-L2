@@ -54,7 +54,7 @@ class ContactsAdapter(contacts : List<Contact>, private val clickListener: OnIte
 
             val colRes = when (contact.status) {
                 Status.OK -> android.R.color.holo_green_dark
-                Status.NEW -> android.R.color.holo_orange_light
+                Status.NEW -> android.R.color.holo_blue_light
                 Status.MODIFIED -> android.R.color.holo_orange_dark
                 Status.DELETED -> android.R.color.holo_red_dark
             }
