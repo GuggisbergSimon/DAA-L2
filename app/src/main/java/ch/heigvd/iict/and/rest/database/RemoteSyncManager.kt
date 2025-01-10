@@ -5,6 +5,7 @@ import ch.heigvd.iict.and.rest.models.Contact
 import ch.heigvd.iict.and.rest.models.ContactDTO
 import ch.heigvd.iict.and.rest.models.Status
 import ch.heigvd.iict.and.rest.models.toContact
+import ch.heigvd.iict.and.rest.models.toDTO
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
@@ -82,81 +83,108 @@ class RemoteSyncManager {
             registerContact(contact)
             return
         }
-        var responseCodeHttp = 400
-        withContext(Dispatchers.IO) {
-            val url = URL("$REMOTE_URL/contacts/" + contact.serverId)
-            with(url.openConnection() as HttpURLConnection) {
-                requestMethod = "PUT"
-                setRequestProperty("X-UUID", token)
-                val json = Gson().toJson(contact)
-                doOutput = true
-                setRequestProperty("Content-Type", "application/json")
-                outputStream.bufferedWriter(Charsets.UTF_8).use {
-                    it.append(json)
+        return withContext(Dispatchers.IO) {
+            val url = URL("$REMOTE_URL/contacts/${contact.serverId}")
+            val connection = url.openConnection() as HttpURLConnection
+            try {
+                connection.apply {
+                    requestMethod = "PUT"
+                    setRequestProperty("X-UUID", token)
+                    setRequestProperty("Content-Type", "application/json")
+                    doOutput = true
+
+                    // Write JSON payload
+                    val json = Gson().toJson(contact.toDTO())
+                    outputStream.bufferedWriter(Charsets.UTF_8).use { writer ->
+                        writer.append(json)
+                    }
+
+                    // Check the response code
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream.bufferedReader(Charsets.UTF_8).use { reader ->
+                            Log.d("MainActivity", reader.readText())
+                        }
+                        contact.status = Status.OK
+                    } else {
+                        Log.w("MainActivity", "Edit failed with response code: $responseCode")
+                    }
                 }
-                // on traite la réponse du service REST
-                responseCodeHttp = responseCode
-                Log.d("MainActivity", "responseCode: $responseCode")
-                inputStream.bufferedReader(Charsets.UTF_8).use {
-                    Log.d("MainActivity", it.readText())
-                }
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Error editing contact: ${e.message}", e)
+            } finally {
+                connection.disconnect()
             }
-        }
-        if (responseCodeHttp < 400) {
-            contact.status = Status.OK
         }
     }
 
     suspend fun registerContact(contact: Contact) {
-        var responseCodeHttp = 400
-        withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.IO) {
             val url = URL("$REMOTE_URL/contacts/")
-            with(url.openConnection() as HttpURLConnection) {
-                requestMethod = "POST"
-                setRequestProperty("X-UUID", token)
-                val json = Gson().toJson(contact)
-                doOutput = true
-                setRequestProperty("Content-Type", "application/json")
-                outputStream.bufferedWriter(Charsets.UTF_8).use {
-                    it.append(json)
+            val connection = url.openConnection() as HttpURLConnection
+            try {
+                connection.apply {
+                    requestMethod = "POST"
+                    setRequestProperty("X-UUID", token)
+                    setRequestProperty("Content-Type", "application/json")
+                    doOutput = true
+
+                    // Write JSON payload
+                    val json = Gson().toJson(contact.toDTO())
+                    outputStream.bufferedWriter(Charsets.UTF_8).use { writer ->
+                        writer.append(json)
+                    }
+
+                    // Check the response code
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream.bufferedReader(Charsets.UTF_8).use { reader ->
+                            val response = reader.readText()
+                            contact.serverId = Gson().fromJson(response, ContactDTO::class.java).id
+                        }
+                        contact.status = Status.OK
+                    } else {
+                        Log.w("MainActivity", "Register failed with response code: $responseCode")
+                    }
                 }
-                // on traite la réponse du service REST
-                responseCodeHttp = responseCode
-                Log.d("MainActivity", "responseCode: $responseCode")
-                inputStream.bufferedReader(Charsets.UTF_8).use {
-                    val response = it.readText()
-                    contact.serverId = Gson().fromJson(response, ContactDTO::class.java).id
-                }
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Error registering contact: ${e.message}", e)
+            } finally {
+                connection.disconnect()
             }
-        }
-        if (responseCodeHttp < 400) {
-            contact.status = Status.OK
         }
     }
 
     suspend fun deleteContact(contact: Contact) {
-        var responseCodeHttp = 400
-        withContext(Dispatchers.IO) {
-            val url = URL("$REMOTE_URL/contacts/" + contact.serverId)
-            with(url.openConnection() as HttpURLConnection) {
-                requestMethod = "DELETE"
-                setRequestProperty("X-UUID", token)
-                val json = Gson().toJson(contact)
-                doOutput = true
-                setRequestProperty("Content-Type", "application/json")
-                outputStream.bufferedWriter(Charsets.UTF_8).use {
-                    it.append(json)
+        return withContext(Dispatchers.IO) {
+            val url = URL("$REMOTE_URL/contacts/${contact.serverId}")
+            val connection = url.openConnection() as HttpURLConnection
+            try {
+                connection.apply {
+                    requestMethod = "DELETE"
+                    setRequestProperty("X-UUID", token)
+                    setRequestProperty("Content-Type", "application/json")
+                    doOutput = true
+
+                    // Write JSON payload
+                    val json = Gson().toJson(contact.toDTO())
+                    outputStream.bufferedWriter(Charsets.UTF_8).use { writer ->
+                        writer.append(json)
+                    }
+
+                    // Check the response code
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream.bufferedReader(Charsets.UTF_8).use { reader ->
+                            Log.d("MainActivity", reader.readText())
+                        }
+                        contact.status = Status.OK
+                    } else {
+                        Log.w("MainActivity", "Delete failed with response code: $responseCode")
+                    }
                 }
-                // on traite la réponse du service REST
-                responseCodeHttp = responseCode
-                Log.d("MainActivity", "responseCode: $responseCode")
-                inputStream.bufferedReader(Charsets.UTF_8).use {
-                    Log.d("MainActivity", it.readText())
-                }
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Error deleting contact: ${e.message}", e)
+            } finally {
+                connection.disconnect()
             }
-        }
-        if (responseCodeHttp < 400) {
-            contact.status = Status.OK
         }
     }
 

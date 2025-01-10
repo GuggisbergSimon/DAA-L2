@@ -82,15 +82,13 @@ class ContactsViewModel(private val repository: ContactsRepository) : ViewModel(
     // actions
     fun enroll() {
         viewModelScope.launch {
-            repository.clearAllContacts()
-            repository.syncAllContacts()
-
+            repository.enroll()
         }
     }
 
     fun refresh() {
         viewModelScope.launch {
-            // TODO
+            repository.syncAllContacts()
         }
     }
 
