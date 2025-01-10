@@ -72,6 +72,7 @@ dependencies {
 
     // Gson for JSON parsing
     implementation(libs.gson)
+    implementation(libs.androidx.preference.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

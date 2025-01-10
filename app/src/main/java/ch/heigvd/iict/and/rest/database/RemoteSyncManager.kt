@@ -16,26 +16,27 @@ class RemoteSyncManager {
 
     companion object {
         const val REMOTE_URL = "https://daa.iict.ch"
+        const val TOKEN_KEY = "token"
     }
-    //TODO Remove the potentially useless logs. They are here for debugging
-    private var token: String? = null
-        private set
 
-    private suspend fun getOrFetchToken(): String? {
-        if (token === null) {
-            withContext(Dispatchers.IO) {
-                val url = URL("$REMOTE_URL/enroll")
-                with(url.openConnection() as HttpURLConnection) {
-                    requestMethod = "GET"
-                    inputStream.bufferedReader().use {
-                        token = it.readText()
-                    }
-                    println("Token: $token")
+    private var token : String = ""
+    //TODO Remove the potentially useless logs. They are here for debugging
+
+    suspend fun getToken() : String {
+        withContext(Dispatchers.IO) {
+            val url = URL("$REMOTE_URL/enroll")
+            with(url.openConnection() as HttpURLConnection) {
+                requestMethod = "GET"
+                inputStream.bufferedReader().use {
+                    token = it.readText()
                 }
+                println("Token: $token")
             }
         }
         return token
-
+    }
+    fun setToken(token : String) {
+        this.token = token
     }
 
     suspend fun getAllContacts(): List<Contact> {
@@ -43,10 +44,11 @@ class RemoteSyncManager {
             val url = URL("$REMOTE_URL/contacts")
             with(url.openConnection() as HttpURLConnection) {
                 requestMethod = "GET"
-                setRequestProperty("X-UUID", getOrFetchToken())
+                setRequestProperty("X-UUID", token)
                 inputStream.bufferedReader().use {
                     val response = it.readText()
-                    val dtos = Gson().fromJson<List<ContactDTO>>(response,
+                    val dtos = Gson().fromJson<List<ContactDTO>>(
+                        response,
                         object : TypeToken<List<ContactDTO>>() {}.type
                     )
                     dtos.map { it.toContact() }
@@ -60,7 +62,7 @@ class RemoteSyncManager {
             val url = URL("$REMOTE_URL/contacts/$id")
             with(url.openConnection() as HttpURLConnection) {
                 requestMethod = "GET"
-                setRequestProperty("X-UUID", getOrFetchToken())
+                setRequestProperty("X-UUID", token)
                 inputStream.bufferedReader().use {
                     val response = it.readText()
                     Gson().fromJson(response, ContactDTO::class.java).toContact()
@@ -76,12 +78,16 @@ class RemoteSyncManager {
     }
 
     suspend fun editContact(contact: Contact) {
+        if (contact.serverId == null) {
+            registerContact(contact)
+            return
+        }
         var responseCodeHttp = 400
         withContext(Dispatchers.IO) {
-            val url = URL("$REMOTE_URL/contacts/"+contact.serverId)
+            val url = URL("$REMOTE_URL/contacts/" + contact.serverId)
             with(url.openConnection() as HttpURLConnection) {
                 requestMethod = "PUT"
-                setRequestProperty("X-UUID", getOrFetchToken())
+                setRequestProperty("X-UUID", token)
                 val json = Gson().toJson(contact)
                 doOutput = true
                 setRequestProperty("Content-Type", "application/json")
@@ -100,13 +106,14 @@ class RemoteSyncManager {
             contact.status = Status.OK
         }
     }
+
     suspend fun registerContact(contact: Contact) {
         var responseCodeHttp = 400
         withContext(Dispatchers.IO) {
             val url = URL("$REMOTE_URL/contacts/")
             with(url.openConnection() as HttpURLConnection) {
                 requestMethod = "POST"
-                setRequestProperty("X-UUID", getOrFetchToken())
+                setRequestProperty("X-UUID", token)
                 val json = Gson().toJson(contact)
                 doOutput = true
                 setRequestProperty("Content-Type", "application/json")
@@ -127,13 +134,13 @@ class RemoteSyncManager {
         }
     }
 
-    suspend fun  deleteContact(contact: Contact) {
+    suspend fun deleteContact(contact: Contact) {
         var responseCodeHttp = 400
         withContext(Dispatchers.IO) {
-            val url = URL("$REMOTE_URL/contacts/"+contact.serverId)
+            val url = URL("$REMOTE_URL/contacts/" + contact.serverId)
             with(url.openConnection() as HttpURLConnection) {
                 requestMethod = "DELETE"
-                setRequestProperty("X-UUID", getOrFetchToken())
+                setRequestProperty("X-UUID", token)
                 val json = Gson().toJson(contact)
                 doOutput = true
                 setRequestProperty("Content-Type", "application/json")

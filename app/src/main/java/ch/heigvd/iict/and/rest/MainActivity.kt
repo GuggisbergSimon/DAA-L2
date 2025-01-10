@@ -1,21 +1,33 @@
 package ch.heigvd.iict.and.rest
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
+import ch.heigvd.iict.and.rest.database.RemoteSyncManager
+import ch.heigvd.iict.and.rest.database.RemoteSyncManager.Companion.TOKEN_KEY
 import ch.heigvd.iict.and.rest.databinding.ActivityMainBinding
 import ch.heigvd.iict.and.rest.fragments.EditContactFragment
 import ch.heigvd.iict.and.rest.viewmodels.ContactsViewModel
 import ch.heigvd.iict.and.rest.viewmodels.ContactsViewModelFactory
+import ch.heigvd.iict.and.rest.viewmodels.Uuid
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private val contactsViewModel: ContactsViewModel by viewModels {
         ContactsViewModelFactory((application as ContactsApplication).repository)
     }
+    private val uuid : Uuid = Uuid()
+    private val remoteSyncManager : RemoteSyncManager = RemoteSyncManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +48,7 @@ class MainActivity : AppCompatActivity() {
                 binding.mainFabNew.show()
             }
         }
+        setUuid()
     }
 
     fun hideFab() {
@@ -64,4 +77,20 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private val TAG = MainActivity::class.java.simpleName
     }
+
+    private fun setUuid() {
+        val prefs : SharedPreferences = getPreferences(Context.MODE_PRIVATE)
+        uuid.data.value =  prefs.getString(TOKEN_KEY, null)
+        if(uuid.data.value == null) {
+            CoroutineScope(Dispatchers.IO).launch {
+                val token = remoteSyncManager.getToken()
+                withContext(Dispatchers.Main) {
+                    uuid.data.postValue(token)
+                }
+            }
+        } else {
+            remoteSyncManager.setToken(uuid.data.value!!)
+        }
+    }
+
 }
