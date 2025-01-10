@@ -122,7 +122,7 @@ class RemoteSyncManager {
 
     suspend fun registerContact(contact: Contact) {
         return withContext(Dispatchers.IO) {
-            val url = URL("$REMOTE_URL/contacts/")
+            val url = URL("$REMOTE_URL/contacts")
             val connection = url.openConnection() as HttpURLConnection
             try {
                 connection.apply {
@@ -138,7 +138,7 @@ class RemoteSyncManager {
                     }
 
                     // Check the response code
-                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                    if (responseCode == HttpURLConnection.HTTP_CREATED) {
                         inputStream.bufferedReader(Charsets.UTF_8).use { reader ->
                             val response = reader.readText()
                             contact.serverId = Gson().fromJson(response, ContactDTO::class.java).id

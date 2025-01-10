@@ -5,8 +5,8 @@ import java.util.Calendar
 import java.util.Locale
 
 data class ContactDTO(
-    val id: Long,
-    val name: String,
+    val id: Long?,
+    val name: String?,
     val firstname: String?,
     val birthday: String?,
     val email: String?,
@@ -19,7 +19,7 @@ data class ContactDTO(
 
 fun ContactDTO.toContact(): Contact {
     return Contact(
-        name = this.name,
+        name = this.name!!,
         firstname = this.firstname,
         birthday = this.birthday?.let {
             Calendar.getInstance().apply {

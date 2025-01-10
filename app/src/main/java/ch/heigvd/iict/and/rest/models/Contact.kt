@@ -31,7 +31,7 @@ data class Contact(
 
 fun Contact.toDTO(): ContactDTO {
     return ContactDTO(
-        id = this.serverId ?: -1,
+        id = this.serverId,
         name = this.name,
         firstname = this.firstname,
         birthday = birthday?.let {

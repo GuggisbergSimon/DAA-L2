@@ -33,8 +33,11 @@ class ContactsRepository(private val contactsDao: ContactsDao, private val remot
         CoroutineScope(Dispatchers.IO).launch {
             contact.status = Status.NEW
             contactsDao.insert(contact)
+
             remoteSyncManager.registerContact(contact)
+            println("Contact status: ${contact.status}")
             contactsDao.update(contact)
+            println("Contact created: $contact")
         }
     }
 
