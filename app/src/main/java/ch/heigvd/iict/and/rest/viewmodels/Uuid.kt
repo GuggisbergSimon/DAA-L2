@@ -6,7 +6,11 @@ import androidx.lifecycle.ViewModelProvider
 import ch.heigvd.iict.and.rest.ContactsRepository
 
 class Uuid : ViewModel() {
-
-    val data = MutableLiveData<String?>(null)
+    companion object {
+        val data = MutableLiveData<String?>(null)
+    }
+    fun getData() : MutableLiveData<String?> {
+        return data
+    }
 }
 

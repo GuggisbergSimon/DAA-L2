@@ -6,6 +6,7 @@ import ch.heigvd.iict.and.rest.models.ContactDTO
 import ch.heigvd.iict.and.rest.models.Status
 import ch.heigvd.iict.and.rest.models.toContact
 import ch.heigvd.iict.and.rest.models.toDTO
+import ch.heigvd.iict.and.rest.viewmodels.Uuid
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
@@ -19,11 +20,11 @@ class RemoteSyncManager {
         const val REMOTE_URL = "https://daa.iict.ch"
         const val TOKEN_KEY = "token"
     }
-
-    private var token : String = ""
+    private val uuid : Uuid = Uuid()
     //TODO Remove the potentially useless logs. They are here for debugging
 
-    suspend fun getToken() : String {
+    suspend fun enroll() : String {
+        val token : String
         withContext(Dispatchers.IO) {
             val url = URL("$REMOTE_URL/enroll")
             with(url.openConnection() as HttpURLConnection) {
@@ -34,10 +35,12 @@ class RemoteSyncManager {
                 println("Token: $token")
             }
         }
+        uuid.getData().postValue(token)
         return token
     }
-    fun setToken(token : String) {
-        this.token = token
+
+    private fun getToken() : String {
+        return uuid.getData().value!!
     }
 
     suspend fun getAllContacts(): List<Contact> {
@@ -45,7 +48,7 @@ class RemoteSyncManager {
             val url = URL("$REMOTE_URL/contacts")
             with(url.openConnection() as HttpURLConnection) {
                 requestMethod = "GET"
-                setRequestProperty("X-UUID", token)
+                setRequestProperty("X-UUID", getToken())
                 inputStream.bufferedReader().use {
                     val response = it.readText()
                     val dtos = Gson().fromJson<List<ContactDTO>>(
@@ -63,7 +66,7 @@ class RemoteSyncManager {
             val url = URL("$REMOTE_URL/contacts/$id")
             with(url.openConnection() as HttpURLConnection) {
                 requestMethod = "GET"
-                setRequestProperty("X-UUID", token)
+                setRequestProperty("X-UUID", getToken())
                 inputStream.bufferedReader().use {
                     val response = it.readText()
                     Gson().fromJson(response, ContactDTO::class.java).toContact()
@@ -89,7 +92,7 @@ class RemoteSyncManager {
             try {
                 connection.apply {
                     requestMethod = "PUT"
-                    setRequestProperty("X-UUID", token)
+                    setRequestProperty("X-UUID", getToken())
                     setRequestProperty("Content-Type", "application/json")
                     doOutput = true
 
@@ -124,7 +127,7 @@ class RemoteSyncManager {
             try {
                 connection.apply {
                     requestMethod = "POST"
-                    setRequestProperty("X-UUID", token)
+                    setRequestProperty("X-UUID", getToken())
                     setRequestProperty("Content-Type", "application/json")
                     doOutput = true
 
@@ -160,7 +163,7 @@ class RemoteSyncManager {
             try {
                 connection.apply {
                     requestMethod = "DELETE"
-                    setRequestProperty("X-UUID", token)
+                    setRequestProperty("X-UUID", getToken())
                     setRequestProperty("Content-Type", "application/json")
                     doOutput = true
 

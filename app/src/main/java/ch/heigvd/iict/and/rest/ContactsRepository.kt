@@ -98,7 +98,7 @@ class ContactsRepository(private val contactsDao: ContactsDao, private val remot
     fun enroll() {
         CoroutineScope(Dispatchers.IO).launch {
             clearAllContacts()
-            remoteSyncManager.setToken(remoteSyncManager.getToken())
+            remoteSyncManager.enroll()
             syncAllContacts()
         }
     }

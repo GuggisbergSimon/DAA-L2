@@ -18,7 +18,6 @@ import ch.heigvd.iict.and.rest.viewmodels.Uuid
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class MainActivity : AppCompatActivity() {
@@ -79,17 +78,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUuid() {
-        val prefs : SharedPreferences = getPreferences(Context.MODE_PRIVATE)
-        uuid.data.value =  prefs.getString(TOKEN_KEY, null)
-        if(uuid.data.value == null) {
+        val prefs: SharedPreferences = getPreferences(Context.MODE_PRIVATE)
+        uuid.getData().value = prefs.getString(TOKEN_KEY, null)
+        println("Gotten : " + uuid.getData().value + " from cache")
+        uuid.getData().observe(this) { value ->
+            println("Putting token into cache $value")
+            prefs.edit().putString(TOKEN_KEY, value).apply()
+        }
+        if(uuid.getData().value == null) {
+            println("Fetching new value")
             CoroutineScope(Dispatchers.IO).launch {
-                val token = remoteSyncManager.getToken()
-                withContext(Dispatchers.Main) {
-                    uuid.data.postValue(token)
-                }
+                remoteSyncManager.enroll()
             }
         } else {
-            remoteSyncManager.setToken(uuid.data.value!!)
+            println("Token : " + uuid.getData().value + "gotten from cache")
         }
     }
 
