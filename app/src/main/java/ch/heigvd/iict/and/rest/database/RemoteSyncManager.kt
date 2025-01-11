@@ -21,7 +21,6 @@ class RemoteSyncManager {
         const val TOKEN_KEY = "token"
     }
     private val uuid : Uuid = Uuid()
-    //TODO Remove the potentially useless logs. They are here for debugging
 
     suspend fun enroll() : String {
         val token : String
@@ -190,6 +189,4 @@ class RemoteSyncManager {
             }
         }
     }
-
-
 }
