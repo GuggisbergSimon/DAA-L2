@@ -17,6 +17,8 @@ Ceci a été décidé en raison de la charge de travail d'autres matières et du
 Nous avons accepté les dates sous forme de `String`, plutôt que de `DatePicker`, afin de simplifier l'implémentation.
 Le format de date dans `EditContactFragment` est sous la forme : `yyyy-MM-dd`.
 De plus, le fragment `EditContactFragment` est également responsable de la création de nouveaux contacts, la distinction se fait via `selectedContact` dans `ContactsViewModel`.
+Si nous sommes en cas de modification, alors trois boutons sont affichés : `Save`, `Cancel` et `Delete`.
+Dans le cas contraire, uniquement deux : `Create` et `Cancel`.
 
 #### Contact
 
@@ -90,7 +92,6 @@ Nous avons modifié le `ContactAdapter`, plus précisement le `ViewHolder` pour 
 - Vert : Ceux dont le status est syncrone. 
 
 ## Implémentation des appels API 4.3
-TODO: Make it proper french, it's just I do not want to forget.
 
 Pour l'implémentation de ces méthodes nous avons choisis `Java-net-url` pour sa simplicité d'utilisation.
 

@@ -134,7 +134,7 @@ class EditContactFragment : Fragment() {
                     PhoneType.MOBILE -> phoneTypeGroup.check(R.id.edit_contact_phonetype_mobile)
                     PhoneType.OFFICE -> phoneTypeGroup.check(R.id.edit_contact_phonetype_office)
                     PhoneType.FAX -> phoneTypeGroup.check(R.id.edit_contact_phonetype_fax)
-                    null -> TODO() //Probably just no sync
+                    null -> phoneTypeGroup.check(R.id.edit_contact_phonetype_home) //Doesn't happen naturally so is left with the first option
                 }
                 phoneNumberEditText.setText(it.phoneNumber)
                 deleteButton.visibility = View.VISIBLE

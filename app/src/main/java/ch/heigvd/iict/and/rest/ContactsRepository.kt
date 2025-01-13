@@ -16,10 +16,6 @@ class ContactsRepository(private val contactsDao: ContactsDao, private val remot
         private val TAG = "ContactsRepository"
     }
 
-    // TODO update the status of the contact in the local database
-    // TODO send the updated contact to the remote server
-    // TODO if the remote server returns a success status, update the contact in the local database
-
     fun update(contact: Contact) {
         CoroutineScope(Dispatchers.IO).launch {
             contact.status = Status.MODIFIED
@@ -61,13 +57,12 @@ class ContactsRepository(private val contactsDao: ContactsDao, private val remot
     fun syncAllContacts() {
 
         CoroutineScope(Dispatchers.IO).launch {
-            // TODO check if the contact is already in the local database
-            // TODO check if some contacts are not in sync with the remote server
 
             val contacts = contactsDao.getAllContacts()
             val remoteContacts = remoteSyncManager.getAllContacts()
             val remoteContactsMap = remoteContacts.associateBy { it.serverId }
 
+            // check if the contact is already in the local database
             remoteContacts.forEach { remoteContact ->
                 val localContact = contacts.find { it.serverId == remoteContact.serverId }
                 if (localContact == null) {
@@ -75,6 +70,7 @@ class ContactsRepository(private val contactsDao: ContactsDao, private val remot
                 }
             }
 
+            // check if some contacts are not in sync with the remote server
             contacts.forEach { contact ->
                 val remoteContact = remoteContactsMap[contact.serverId]
                 if (remoteContact != null) {
