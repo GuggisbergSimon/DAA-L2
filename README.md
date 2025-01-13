@@ -76,11 +76,12 @@ Nous avons utilisé les `SharedPreferences` pour stocker le token de l'utilisate
 Pour faciliter les interactions avec l'UUID nous avons décider de le mettre dans un livedata dans une classe dédiée,
 Ainsi si nous souhaitons l'utilser dans d'autre composant, il est facile d'y accéder.
 
-Pour garantir que l'UUID soit partagée correctement, nous avons décidé d'utiliser un compagnon object, pour qu'elle soit partagée parmis toutes les instances.
+Pour garantir que l'UUID soit partagé correctement, nous avons décidé d'utiliser un compagnon object.
+Ainsi tout les instances accèdent à la même valeur.
 
 L'activité principale s'occupe de charger l'UUID du cache (`SharedPreferences`). 
 S'il n'existe pas, elle fait un appel à `enroll()` (défini dans `RemoteSyncManager`) pour obtenir un nouveau token.
-De plus elle observe la livedata pour mettre à jour le cache en cas de changement de valeur du token, typiquement si on décide de supprimer tout les données et partir $ neuf (quand on appuie sur le bouton d'enroll).
+De plus elle observe la livedata pour mettre à jour le cache en cas de changement de valeur du token, typiquement si on décide de supprimer tout les données et partir à neuf (quand on appuie sur le bouton d'enroll).
 
 #### ContactAdapter
 
@@ -89,7 +90,7 @@ Nous avons modifié le `ContactAdapter`, plus précisement le `ViewHolder` pour 
 - Bleu : Les objets créés mais pas encore présents sur le serveur.
 - Orange : Ceux édités en local mais pas sur le seveur.
 - Rouge : Ceux Supprimé en local (ils disparaissent uniquement lorsque la syncronisation est un succès)
-- Vert : Ceux dont le status est syncrone. 
+- Vert : Ceux dont le status est synchrone. 
 
 ## Implémentation des appels API 4.3
 
