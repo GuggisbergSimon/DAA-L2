@@ -32,8 +32,7 @@ class MainActivity : AppCompatActivity() {
         )
         val ndef = IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED).apply {
             try {
-                addDataType("*/*")    /* Handles all MIME based dispatches.
-                                 You should specify only the ones that you need. */
+                addDataType("*/*")
             } catch (e: IntentFilter.MalformedMimeTypeException) {
                 throw RuntimeException("fail", e)
             }
@@ -67,7 +66,7 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onResume() {
         super.onResume()
-        adapter.enableForegroundDispatch(this, pendingIntent, null, null)
+        adapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray)
     }
 
     /**
