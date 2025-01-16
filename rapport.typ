@@ -52,7 +52,7 @@
 )
 = Introduction
 
-NFC est un ensemble de protocoles de communication sans fil qui permettent l'\échange de données et le chargement de batterie et ce jusqu'à ~4cm.
+NFC est un ensemble de protocoles de communication sans fil qui permettent l'\échange de données et le chargement de batterie et ce jusqu'à \~4cm.
 Se basant sur la technologie RFID (radio frequency identification), l'histoire de NFC remonte jusqu'en 1983.
 Ce n'est qu'en 2003 que la norme ISO NFC a été approuvée, et en 2006 que les spécifications pour NFC Tags ont été définies.
 
@@ -66,20 +66,20 @@ Ce standard est défini par le NFC Forum.
 
 == Android
 
-Il faut demander la permission dans le manifest pour utiliser la technologie.
+Afin de pouvoir utiliser le lecteur NFC d'un telephone Android dans une application, il faut demander la permission dans le manifest pour utiliser la technologie.
 
 ```xml
 <uses-permission android:name="android.permission.NFC" />
 ```
 
-Pas tous les téléphones ne disposent d'un lecteur NFC.
+Tous les téléphones ne disposent pas d'un lecteur NFC.
 Pour que l'application ne s'affiche sur Google Play Store que pour les téléphones disposant d'un lecteur NFC, il faut ajouter ceci dans le manifest :
 
 ```xml
 <uses-feature android:name="android.hardware.nfc" android:required="true" />
 ```
 
-Il est également recommandé de requérir une certaine version d'API.
+Il est également recommandé de requérir une certaine version d'API car les fonctionnalités NFC ont été améliorées au fil des versions d'Android :
 
 - 9+ : `ACTION_NDEF_DISCOVERED` et `EXTRA_NDEF_MESSAGES`
 - 10+ : Bien meilleur support pour Reader/Writer et Foreground Dispatch System
@@ -91,15 +91,15 @@ Il est également recommandé de requérir une certaine version d'API.
 
 === Deux modes
 
-- **Reader/Writer mode** : pour lire et écrire des tags NFC
-- **Émulation de carte** : pour émuler une carte NFC via un téléphone, qui peut ensuite être accédé par un lecteur de carte NFC externe.
+- *Reader/Writer mode* : pour lire et écrire des tags NFC
+- *Émulation de carte* : pour émuler une carte NFC via un téléphone, qui peut ensuite être accédé par un lecteur de carte NFC externe.
 
 Pour écrire dans un NFC tag, il faut établir son propre protocole de communication.
 
 === Données NDEF
 
 Les données sont encapsulées dans un message `NdefMessage` qui contient un ou plusieurs enregistrements `NdefRecord`.
-Chaque enregistrement doit correspondre aux spécifications au type de données choisi.
+Chaque enregistrement doit correspondre aux spécifications du type de données choisi.
 
 === Tag Dispatch System
 
@@ -112,7 +112,7 @@ En cas de détection de tag, le TAG Dispatch System va :
 3. Démarrer une activité basée sur l'intent
 
 Cet intent est pour éviter à l'utilisateur, une fois proche du NFC tag, de devoir choisir une application pour lire les données.
-En effectuant ce type de mouvement, la connexion pourrait être perdue, en raison de la très courte distance de connexion (~4cm).
+En effectuant ce type de mouvement, la connexion pourrait être perdue, en raison de la très courte distance de connexion (\~4cm).
 
 Il est possible de déclarer un intent filter pour intercepter les intents et traiter les données.
 
@@ -122,7 +122,12 @@ Il est possible de déclarer un intent filter pour intercepter les intents et tr
 - `ACTION_TECH_DISCOVERED` : pour lire technologiques (technologies NFC : NfcA, NfcB, NfcF ...)
 - `ACTION_TAG_DISCOVERED` : si aucune des deux actions précédentes n'est définie
 
-image("https://developer.android.com/static/images/nfc_tag_dispatch.png", alt: "NFC Tag Dispatch System")
+#figure(
+  image("nfc_tag_dispatch.png", width: 95%),
+  caption: [
+    NFC Tag Dispatch System
+  ],
+)
 
 ==== Exemple NDEF
 
