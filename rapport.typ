@@ -245,6 +245,33 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
+=== Émulation de carte - Host Card Emulation - HCE
+
+Cela peut se faire : 
+  - par un élément sécurisé, une puce séparée, souvent hébergé sur une carte SIM, demande un matériel dédié.
+  - Entièrement côté software. Utilise les sécurités Android telles que Application Sandbox pour s'assurer que les données ne soient pas accessibles par d'autres applications.
+
+Les services HCE sont basés sur `Service` de Android, ce qui les autorise à tourner en background sans interface utilisateur requise.
+
+==== Application Identification - AID
+
+Une Identification d'Application (AID) est une chaîne de charactères unique qui permet d'identifier le type de service que l'application donne au lecteur NFC.
+Il est également possible de spécifier quelle application a la priorité, lorsqu'elle est en premier plan, pour quelle AID, ce qui peut être utile en cas de conflit si plusieurs services souhaitent traiter la même AID.
+
+Pour déclarer une application NFC comme apte à efffectuer des transactions avec HCE, il faut ajouter ceci dans le manifest. En plus se trouve un exemple de déclaration d'un groupe d'AID, et de deux AIDs :
+
+```xml
+<host-apdu-service xmlns:android="http://schemas.android.com/apk/res/android"
+           android:description="@string/servicedesc"
+           android:requireDeviceUnlock="false">
+    <aid-group android:description="@string/aiddescription"
+               android:category="other">
+        <aid-filter android:name="F0010203040506"/>
+        <aid-filter android:name="F0394148148100"/>
+    </aid-group>
+</host-apdu-service>
+```
+
 = Liens utiles
 
 - NFC Forum : #link("https://nfc-forum.org/")
