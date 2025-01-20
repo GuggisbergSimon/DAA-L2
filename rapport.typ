@@ -221,6 +221,8 @@ Foreground Dispatch System permet de bypasser le Tag Dispatch System pour lire d
 
 Ceci se fait au travers de méthodes de la classe `NfcAdapter` qui doivent être activées et désactivées lorsque l'application est mise en pause, ou résumée.
 
+À noter que, si l'on ne connaît ni les MIME type ni les technologies à filtrer, il est recommandé de les laisser à null lors de l'appel de `enableForegroundDispatch`.
+
 ```kotlin
 private lateinit var adapter: NfcAdapter
 private lateinit var pendingIntent: PendingIntent
@@ -238,7 +240,7 @@ override fun onPause() {
 }
 ```
 
-Exemple de paramétrage de ces filtres :
+Exemple de paramétrage de ces filtres. :
 
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
@@ -274,13 +276,46 @@ Cela peut se faire :
 
 Les services HCE sont basés sur `Service` de Android, ce qui les autorise à tourner en background sans interface utilisateur requise.
 
-==== Application Identification - AID
 
-Une Identification d'Application (AID) est une chaîne de charactères unique qui permet d'identifier le type de service que l'application donne au lecteur NFC.
+
+Pour pouvoir créer un Service HCE, il faut hériter de `HostApduService` et implémenter les méthodes `processCommandApdu` et `onDeactivated`.
+
+À noter qu'un Application Protocol Data Unit (ADPU) sont des paquets échangés entre un NFC reader et un HCE service.
+
+```kt
+class MyHostApduService : HostApduService() {
+
+    override fun processCommandApdu(commandApdu: ByteArray, extras: Bundle?): ByteArray {
+       //called whenever a NFC reader sends an APDU
+       //TODO
+    }
+
+    override fun onDeactivated(reason: Int) {
+      //The link between the NFC reader and the device is broken
+       //TODO
+    }
+}
+```
+
+Il faut ensuite modifier le manifest pour pointer, ici, vers un fichier `apduservice.xml` :
+
+```xml
+<service android:name=".MyHostApduService" android:exported="true"
+         android:permission="android.permission.BIND_NFC_SERVICE">
+    <intent-filter>
+        <action android:name="android.nfc.cardemulation.action.HOST_APDU_SERVICE"/>
+    </intent-filter>
+    <meta-data android:name="android.nfc.cardemulation.host_apdu_service"
+               android:resource="@xml/apduservice"/>
+</service>
+```
+
+Puis, dans le fichier `apduservice.xml` il faut déclarer les groupes d'Application Identification (AID).
+
+Une AID est une chaîne de charactères unique qui permet d'identifier le type de service que l'application donne au lecteur NFC.
 Il est également possible de spécifier quelle application a la priorité, lorsqu'elle est en premier plan, pour quelle AID, ce qui peut être utile en cas de conflit si plusieurs services souhaitent traiter la même AID.
 
-Pour déclarer une application NFC comme apte à effectuer des transactions avec HCE, il faut ajouter ceci dans le manifest. En plus se trouve un exemple de déclaration d'un groupe d'AID, et de deux AIDs :
-
+Ici, le groupe AID déclaré contient deux AIDs, plus d'informations ci-dessous.
 ```xml
 <host-apdu-service xmlns:android="http://schemas.android.com/apk/res/android"
            android:description="@string/servicedesc"
