@@ -8,7 +8,23 @@
 #let project(title: "DAA - NFC", authors: (), body) = {
   // Set the document's basic properties.
   set document(author: authors, title: title)
-  set page(numbering: "1", number-align: center)
+  set page(
+    numbering: "1", 
+    number-align: center,
+    header: [
+      #grid(
+        columns: (1fr, auto),
+        align(left)[
+          *HEIG-VD* \
+          DAA - NFC
+        ],
+        align(right)[
+          P. Furrer, S. Guggisberg, J. Troeltsch
+        ]
+      )
+      #line(length: 100%, stroke: 0.5pt)
+    ]
+  )
   set text(font: "Libertinus Serif", lang: "fr")
 
   // Title row.
@@ -89,12 +105,13 @@ Il est également recommandé de requérir une certaine version d'API car les fo
 <uses-sdk android:minSdkVersion="10" />
 ```
 
-=== Deux modes
-
+Deux modes distincts existent pour pouvoir interagir avec la technologie NFC du point de vue Android :
 - *Reader/Writer mode* : pour lire et écrire des tags NFC
 - *Émulation de carte* : pour émuler une carte NFC via un téléphone, qui peut ensuite être accédé par un lecteur de carte NFC externe.
 
 Pour écrire dans un NFC tag, il faut établir son propre protocole de communication.
+
+#pagebreak()
 
 === Données NDEF
 
@@ -128,6 +145,8 @@ Il est possible de déclarer un intent filter pour intercepter les intents et tr
     NFC Tag Dispatch System
   ],
 )
+
+#pagebreak()
 
 ==== Exemple NDEF
 
@@ -183,6 +202,8 @@ Puis, dans le manifest, il faut ajouter un lien vers la ressource créée :
     ...
 </activity>
 ```
+
+#pagebreak()
 
 ==== Exemple Tag Discovered
 
@@ -258,7 +279,7 @@ Les services HCE sont basés sur `Service` de Android, ce qui les autorise à to
 Une Identification d'Application (AID) est une chaîne de charactères unique qui permet d'identifier le type de service que l'application donne au lecteur NFC.
 Il est également possible de spécifier quelle application a la priorité, lorsqu'elle est en premier plan, pour quelle AID, ce qui peut être utile en cas de conflit si plusieurs services souhaitent traiter la même AID.
 
-Pour déclarer une application NFC comme apte à efffectuer des transactions avec HCE, il faut ajouter ceci dans le manifest. En plus se trouve un exemple de déclaration d'un groupe d'AID, et de deux AIDs :
+Pour déclarer une application NFC comme apte à effectuer des transactions avec HCE, il faut ajouter ceci dans le manifest. En plus se trouve un exemple de déclaration d'un groupe d'AID, et de deux AIDs :
 
 ```xml
 <host-apdu-service xmlns:android="http://schemas.android.com/apk/res/android"
